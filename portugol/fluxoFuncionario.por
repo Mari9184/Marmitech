@@ -14,6 +14,10 @@ programa {
     inteiro quantidademarmita[] = {15, 12, 10, 14, 16}
     real valormarmita[] = {18.90, 19.90, 17.50, 21.00, 19.50}
 
+  escreva("Entrando como funcionário...\n")
+  u.aguarde(2000)
+  limpa()
+  
   escreva("______Funcionário______\n")
 
     enquanto(nao login){
