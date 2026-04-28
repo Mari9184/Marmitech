@@ -31,9 +31,13 @@ programa {
       }
       
       senao{
-        escreva("Login Inválido!\n")
-        escreva("Digite novamente:\n")
+
         limpa()
+        escreva("Login Inválido!\n")
+        u.aguarde(2000)
+        
+        limpa()
+        escreva("Digite novamente:\n")
       }
     }
           escreva("Login realizado com sucesso!\n")
