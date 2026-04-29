@@ -234,7 +234,7 @@ programa {
 
       caso contrario:
                 
-        escreva("Opção Inváliida!")
+        escreva("Opção Inválida!")
         u.aguarde(2000)
         limpa()
 
