@@ -11,43 +11,76 @@ public class Funcionario {
         Scanner entrada = new Scanner(System.in);
 
         String opcao;
+        boolean continuar = true;
         
         marmitas.add(marmita);
  
 
-        adicionar(marmitas, "camarão", 10.90);
-        adicionar(marmitas, "Feijoada", 10.90);
+        adicionarMarmitas(marmitas, "camarão", 10.90);
+        adicionarMarmitas(marmitas, "Feijoada", 10.90);
 
         limpar();
         
-        while(true){
+        while(continuar){
             System.out.println("---------------------------\n1 - visualizar\n2 - Adicionar\n3 - Atualizar \n4 - Remover\n---------------------------");
             opcao = entrada.nextLine();
             
             switch (opcao) {
                 case "1":
-                    visualizar(marmitas);
+                    visualizarMarmitas(marmitas);
                     break;
                 case "2":
+                    limpar();
                     System.out.println("Digite o nome da marmita: ");
                     String nome = entrada.nextLine();
                     System.out.println("Digite o valor da marmita: ");
                     double valor = entrada.nextDouble();
-                    adicionar(marmitas, nome, valor);
+                    entrada.nextLine();
+                    adicionarMarmitas(marmitas, nome, valor);
+                    limpar();
+                    break;
+                case "3":
+                    System.out.println("coming soon...");
+                    break;
+                case "4":
+                    limpar();
+                    visualizarMarmitasInterno(marmitas);
+                    System.out.println("Digite o indice que deseja remover: ");
+                    int indice = entrada.nextInt();
+                    entrada.nextLine();
+                    removerMarmitas(marmitas, indice-1);
+                    break;
                 default:
+                    System.out.println("Encerrando");
+                    continuar = false;
                     break;
             }
         }
+
+        entrada.close();
     }
 
-    public static void adicionar(ArrayList<Marmita> marmitas, String nome, double valor){
+    public static void adicionarMarmitas(ArrayList<Marmita> marmitas, String nome, double valor){
         marmitas.add(new Marmita(nome, valor));
     }
 
-    public static void visualizar(ArrayList<Marmita> marmitas){
+    public static void visualizarMarmitas(ArrayList<Marmita> marmitas){
         for(Marmita m : marmitas){
             System.out.printf("Nome: %s Preço: %.2f\n", m.nome, m.valor);
         }
+    }
+
+    public static void visualizarMarmitasInterno(ArrayList<Marmita> marmitas){
+        int visualizador;
+        for(int i = 0; i < marmitas.size(); i++){
+            Marmita m = marmitas.get(i);
+            visualizador = i+1;
+            System.out.printf("%d - Nome: %s Preço: %.2f\n", visualizador, m.nome, m.valor);
+        }
+    }
+
+    public static void removerMarmitas(ArrayList<Marmita> marmitas, int indice){
+        marmitas.remove(indice);
     }
 
     public static void limpar(){
