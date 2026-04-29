@@ -18,45 +18,62 @@ programa {
     u.aguarde(2000)
     limpa()
 
-    escreva("_____Cliente_____\n")
+    faca {
+      
+        escreva("_____Cliente_____\n")
 
-    escreva("\nDeseja se identificar?\n")
-          
-    escreva("\n1 - Não\n")
-    escreva("2 - Sim\n")
+        escreva("\nDeseja se identificar?\n")
+              
+        escreva("\n1 - Não\n")
+        escreva("2 - Sim\n")
 
-    escreva("\nOpção: ")
-    leia(opcao)
-    limpa()
-    
-    escolha (opcao){
-      caso 1:
-        escreva("\nContinuando para sistema de compra...\n")
-        login=verdadeiro
+        escreva("\nOpção: ")
+        leia(opcao)
         limpa()
-        pare
+    
+      escolha (opcao){
         
-      caso 2:
-        enquanto (nao login) {
-          escreva("Login: ") leia(cliente)
-          escreva("Senha: ") leia(senha)
+        caso 1:
+
+          escreva("\nContinuando para sistema de compra...\n")
+          login=verdadeiro
           limpa()
-                
-          se (cliente == "1" e senha == "1"){
-            login = verdadeiro
-            escreva("Login realizado com sucesso!\n")
-            u.aguarde(2000)
+
+          pare
+                  
+        caso 2:
+          enquanto (nao login) {
+            escreva("Login: ") leia(cliente)
+            escreva("Senha: ") leia(senha)
             limpa()
+                  
+            se (cliente == "1" e senha == "1"){
+              login = verdadeiro
+              escreva("Login realizado com sucesso!\n")
+              u.aguarde(2000)
+              limpa()
+            }
+            
+            senao {
+              escreva("Login Inválido!\n")
+              escreva("Digite novamente!\n")
+              u.aguarde(2000)
+              limpa()
+            }
           }
-          
-          senao {
-            escreva("Login Inválido!\n")
-            escreva("Digite novamente!\n")
-            u.aguarde(2000)
-            limpa()
-          }
-        }
+          pare
+
+        caso contrario:
+
+          limpa()
+          escreva("Opção Inválida\n")
+          u.aguarde(2000)
+          limpa()
+        
+        pare
       }
+    } enquanto(nao login)
+    
       
       enquanto(sistema){
       
@@ -144,8 +161,11 @@ programa {
                 pare
 
             caso contrario:
+                
+                limpa()
                 escreva("Opção Inválida\n")
-            }
+                u.aguarde(2000)
+                limpa()            }
           }
           escreva("\n___Sistema Encerrado___\n")
   }
