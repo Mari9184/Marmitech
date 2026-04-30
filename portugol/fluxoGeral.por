@@ -17,8 +17,8 @@ programa
     inteiro quantidademarmita[] = {15, 12, 10, 14, 16}
     real valormarmita[] = {18.90, 19.90, 17.50, 21.00, 19.50}
 
+    //Verifica a forma de entrada e sua validade e retorna  sempre que qualquer erro ocorrer ou não for validado o login
     enquanto (nao logininicio){
-
       sistema = verdadeiro
       login = falso
       escreva("______Entrada Como______\n")
@@ -32,6 +32,8 @@ programa
       leia(opcao)
       limpa()
 
+
+      //Inicia as funcionalidades do sistema como cliente
       escolha (opcao){
 
         caso 1:
@@ -39,7 +41,7 @@ programa
           escreva("Entrando como Cliente...\n")
           u.aguarde(2000)
           limpa()
-
+          //Faz autenticação de login como cliente, seja indentificando-se ou não
           faca {
       
             escreva("_____Cliente_____\n")
@@ -64,7 +66,7 @@ programa
               pare
                   
               caso 2:
-                
+                //Faz a autenticação do login identificado
                 sistema = verdadeiro
                 enquanto (nao login) {
                   escreva("Login: ") leia(login)
@@ -105,7 +107,7 @@ programa
             escreva("_____________!!! Marmitas !!!_____________\n")
             
             escreva("\n")
-            
+            //Faz a tabulação do cardápio disponível
             para (inteiro posicao = 0; posicao < 5; posicao++){
               escreva (codmarmita[posicao], "\t\t", nomemarmita[posicao], "\t\t", quantidademarmita[posicao], "\t\t\tR$", valormarmita[posicao], "\n")
             }
@@ -123,7 +125,7 @@ programa
               escolha (opcao){
                 
                 caso 1:
-
+                  //Faz a verificação da validade da marmita em estoque e efetua a compra se a validação for correta
                   faca {
 
                     escreva("\nDigite o código da marmita desejada ou digite '0' para voltar: ")
@@ -215,6 +217,7 @@ programa
   
           escreva("______Funcionário______\n")
 
+          //Faz a autenticação do login do Funcionário
           login = falso
           enquanto(nao login){
             
@@ -241,6 +244,7 @@ programa
           u.aguarde(2000)
           limpa()        
           
+          //Valida a ação que o Funcionário deseja fazer no sistema
           enquanto (sistema){
     
             escreva("_____Ações_____\n")
@@ -257,7 +261,7 @@ programa
             escolha (opcao){
 
               caso 1:
-
+                
                 escreva("Abrindo Notificações...\n")
                 u.aguarde(2000)
                 limpa()
@@ -280,7 +284,7 @@ programa
                 escreva("_____________Gerir Estoque_____________\n")
 
                 escreva("\n")
-
+      
                 para (inteiro posicao = 0; posicao < 5; posicao++){
                 escreva (codmarmita[posicao], "\t\t", nomemarmita[posicao], "\t\t", quantidademarmita[posicao], "\t\t\tR$", valormarmita[posicao], "\n")
                 }
@@ -296,7 +300,7 @@ programa
                   escolha(opcao){
                   
                     caso 1:
-
+                      //Faz a autenticação do item em estoque e verifica a validade para adicionar quantidade
                       faca{
 
                         escreva("\nCodigo do item: ")
@@ -340,7 +344,7 @@ programa
                     pare
 
                     caso 2:
-
+                      //Faz a autenticação do item em estoque e verifica a validade para retirar quantidade
                       faca{
 
                         escreva("\nCodigo do item: ")
@@ -415,7 +419,7 @@ programa
               pare
 
               caso 4:
-
+                //Encerra o Sistema
                 logininicio=verdadeiro      
                 escreva("Encerrando sistema...\n")
                 sistema = falso
@@ -445,6 +449,7 @@ programa
         
           escreva("______Gerente______\n")
 
+          //Faz a autenticação do login do gerente no sistema
           enquanto(nao login){
 
             escreva("\nUsuario: ") leia(usuario)
@@ -471,7 +476,7 @@ programa
           escreva("Login realizado com sucesso!\n")
           u.aguarde(2000)
           limpa()        
-                
+          //Valida a ação que o gerente deseja fazer no sistema
           enquanto (sistema){
           
             escreva("_____Ações_____\n")
@@ -751,7 +756,7 @@ programa
               pare
 
               caso 5:
-
+                //Retorna para o Inicío
                 escreva("Voltando para tela de inicio...\n")
                 sistema = falso
                 u.aguarde(2000)
@@ -764,7 +769,7 @@ programa
         pare
         
         caso 4:
-
+          //Encerra o programa
           limpa()
           escreva("Saindo...\n")
           sistema = falso
