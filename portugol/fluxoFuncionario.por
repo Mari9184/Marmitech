@@ -1,3 +1,8 @@
+//Projeto Integrador: Gerenciamento de Estoque
+//Versсo Portugol webStudio
+//Grupo: Ariel Isidro Nina Saavedra, Bruno Geanini dos Reis, Gabriel Tolcsvai de Cronis, Heloísa Weiss Willwohl Sanches, Mariane Santana da Silva, Miguel Augusto de Oliveira Santos
+
+
 programa {
 
   inclua biblioteca Util --> u 
