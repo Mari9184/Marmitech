@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class funcionario {
+public class FluxoGerente {
     public static void main(String[] args) throws InterruptedException {
 
 
         Duration espera = Duration.ofSeconds(3);
+
+        Gerente gerente = new Gerente("gerente3", "Gerente3");
 
         Marmita marmita = new Marmita("Frango com Arroz    ", 15, 18.90);
 
@@ -24,29 +26,35 @@ public class funcionario {
         adicionarMarmitas(marmitas, "Macarrão à Bolonhesa", 10, 17.50);
         adicionarMarmitas(marmitas, "Strogonoff de Frango", 14, 21.00);
         adicionarMarmitas(marmitas, "Arroz Carreteiro    ", 16, 21.50);
-
         limpar();
 
         System.out.println("Iniciando como Gerente...");
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
         limpar();
 
-        System.out.print("Login: "); login=entrada.next();
-        System.out.print("Senha: "); senha=entrada.next();
-        limpar();
-        if (login.equals("1") && senha.equals("1")){
-        continuar=true;
+        while(true){
+            System.out.print("Login: "); 
+            login=entrada.nextLine();
+
+            System.out.print("Senha: "); 
+            senha=entrada.nextLine();
+            limpar();
+
+            if (login.equals(gerente.login) && senha.equals(gerente.senha)){
+            continuar=true;
+            break;
+            }
+            System.out.println("login Invalido!\nDigite novamente\n");
+            Thread.sleep(2000);
+            limpar();
+            continue;
+        }
+
 
         System.out.println("Login realizado com sucesso!!");
         Thread.sleep(2000);
         
         limpar();
-
-        }else{
-            System.out.println("login Invalido!\nDigite novamente\n");
-            Thread.sleep(2000);
-            limpar();
-        }
 
         while (continuar) {
 
@@ -61,20 +69,23 @@ public class funcionario {
 
                 case "1":
 
-                    limpar();
-                    visualizarMarmitas(marmitas);
-                    System.out.println("\nDigite o nome da marmita: ");
-                    String nome = entrada.nextLine();
-
-                    System.out.println("\nDigite a quantidade deste sabor: ");
-                    int quantidade = entrada.nextInt();
-
-                    System.out.println("\nDigite o valor da marmita: ");
-                    double valor = entrada.nextDouble();
-                    entrada.nextLine();
-
-                    adicionarMarmitas(marmitas, nome, quantidade, valor);
-                    limpar();
+                    while(true){
+                        limpar();
+                        visualizarMarmitas(marmitas);
+                        System.out.println("\nDigite o nome da marmita: ");
+                        String nome = entrada.nextLine();
+    
+                        System.out.println("\nDigite a quantidade deste sabor: ");
+                        int quantidade = entrada.nextInt();
+    
+                        System.out.println("\nDigite o valor da marmita: ");
+                        double valor = entrada.nextDouble();
+                        entrada.nextLine();
+    
+                        adicionarMarmitas(marmitas, nome, quantidade, valor);
+                        limpar();
+                        break;
+                    }
                     break;
 
                 case "2":
@@ -131,7 +142,7 @@ public class funcionario {
 
                 case "5":
 
-                    System.out.println("Encoutando...");
+                    System.out.println("Encerrando...");
                     Thread.sleep(espera.toMillis());
                     continuar = false;
                     break;
@@ -188,5 +199,15 @@ class Marmita {
         this.nome = nome;
         this.quantidade = quantidade;
         this.valor = valor;
+    }
+}
+
+class Gerente {
+    String login;
+    String senha;
+
+    public Gerente(String login, String senha){
+        this.login = login;
+        this.senha = senha;
     }
 }
