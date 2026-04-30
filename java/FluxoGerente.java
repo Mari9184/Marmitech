@@ -9,28 +9,29 @@ public class FluxoGerente {
 
         Duration espera = Duration.ofSeconds(3);
 
-        Gerente gerente = new Gerente("gerente3", "Gerente3");
+        Gerente gerente = new Gerente("gerente3", "gerente3"); //Instancia o objeto gerente, atribuindo valores aos parametros.
 
-        Marmita marmita = new Marmita("Frango com Arroz    ", 15, 18.90);
 
-        ArrayList<Marmita> marmitas = new ArrayList<Marmita>();
-        Scanner entrada = new Scanner(System.in);
+        ArrayList<Marmita> marmitas = new ArrayList<Marmita>(); // Instancia um objeto do tipo ArrayList, para utilizar vetor de forma dinamica
+        Scanner entrada = new Scanner(System.in); // Instancia um objeto Scanner
 
+        // Definições variaveis globais
         String opcao, login, senha;
-        int indice;
+        double valor;
+        int indice, quantidade;
         boolean continuar = false;
 
-        marmitas.add(marmita);
-
+        // adiciona os valores ao array marmitas
+        adicionarMarmitas(marmitas, "Frango com Arroz    ", 15, 18.90);
         adicionarMarmitas(marmitas, "Carne Moída com Purê", 12, 19.90);
         adicionarMarmitas(marmitas, "Macarrão à Bolonhesa", 10, 17.50);
         adicionarMarmitas(marmitas, "Strogonoff de Frango", 14, 21.00);
         adicionarMarmitas(marmitas, "Arroz Carreteiro    ", 16, 21.50);
-        limpar();
+        limpar(); // limpa o console
 
         System.out.println("Iniciando como Gerente...");
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-        limpar();
+        limpar(); // limpa o console
 
         while(true){
             System.out.print("Login: "); 
@@ -38,7 +39,7 @@ public class FluxoGerente {
 
             System.out.print("Senha: "); 
             senha=entrada.nextLine();
-            limpar();
+            limpar(); // limpa o console
 
             if (login.equals(gerente.login) && senha.equals(gerente.senha)){
             continuar=true;
@@ -46,7 +47,7 @@ public class FluxoGerente {
             }
             System.out.println("login Invalido!\nDigite novamente\n");
             Thread.sleep(2000);
-            limpar();
+            limpar(); // limpa o console
             continue;
         }
 
@@ -68,66 +69,130 @@ public class FluxoGerente {
             switch (opcao) {
 
                 case "1":
-
+                    limpar();
+                    visualizarMarmitas(marmitas);
+                    System.out.println("\nDigite o nome da marmita: ");
+                    String nome = entrada.nextLine();
+                
                     while(true){
-                        limpar();
-                        visualizarMarmitas(marmitas);
-                        System.out.println("\nDigite o nome da marmita: ");
-                        String nome = entrada.nextLine();
-    
-                        System.out.println("\nDigite a quantidade deste sabor: ");
-                        int quantidade = entrada.nextInt();
-    
-                        System.out.println("\nDigite o valor da marmita: ");
-                        double valor = entrada.nextDouble();
-                        entrada.nextLine();
-    
-                        adicionarMarmitas(marmitas, nome, quantidade, valor);
-                        limpar();
-                        break;
+                        try{
+                            System.out.println("\nDigite a quantidade deste sabor: ");
+                            String q = entrada.nextLine();
+                            quantidade = Integer.parseInt(q);
+                            break;
+                        }  catch(NumberFormatException e) {
+                            System.out.println("Por favor digite um número inteiro");
+                            continue;
+                        }
                     }
+                    while(true){
+                        try{
+                            System.out.println("\nDigite o valor da marmita: ");
+                            String v = entrada.nextLine();
+                            valor = Double.parseDouble(v);
+                            break;
+                         } catch(NumberFormatException e) {
+                            System.out.println("Por favor digite um número");
+                            continue;
+                        }
+                    }
+
+                    adicionarMarmitas(marmitas, nome, quantidade, valor);
+                    limpar();
                     break;
 
                 case "2":
 
-                    limpar();
+                    limpar(); // limpa o console
                     visualizarMarmitas(marmitas);
 
-                    System.out.println("\nDigite o cod do item que deseja remover: ");
-                    indice = entrada.nextInt();
-                    entrada.nextLine();
+                    while(true){
+                        try {
+                            System.out.println("\nDigite o cod do item que deseja remover: (ou 0 para sair)");
+                            String i = entrada.nextLine();
+                            indice = Integer.parseInt(i);
+                             // verifica se o indice está de acordo com o que existe no projeto
+                            if (indice >= marmitas.size() || indice < 0){
+                                System.out.println("Indice inexistente, por favor digite um indice válido");
+                                continue;
+                            }
+                            break;
+                        } catch(NumberFormatException e) {
+                            System.out.println("Por favor digite um número inteiro");
+                            continue;
+                        }
+                    }
+
+                    if(indice == 0){
+                        limpar(); // limpa o console
+                        System.out.println("voltando...");
+                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                        limpar(); // limpa o console
+                        break;
+                    }
 
                     removerMarmitas(marmitas, indice - 1);
 
-                    limpar();
+                    limpar(); // limpa o console
 
                     System.out.println("Ação bem sucedida!");
                     Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                    limpar();
+                    limpar(); // limpa o console
 
                     System.out.println("O estoque se encontra assim:\n");
                     visualizarMarmitas(marmitas);
                     Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                    limpar();
+                    limpar(); // limpa o console
 
                     break;
 
                 case "3":
                    
-                    limpar();
+                    limpar(); // limpa o console
                     visualizarMarmitas(marmitas);
 
-                    System.out.println("\nDigite o cod do item que deseja alterar ");
-                    indice = entrada.nextInt();
-                    entrada.nextLine();
+                    // Cria o loop para manter até informar um numero inteiro
+                    while(true){
+                        try {
+                            System.out.println("\nDigite o cod do item que deseja alterar: (ou 0 para sair)");
+                            String i = entrada.nextLine();
+                            indice = Integer.parseInt(i);
+                            // verifica se o indice está de acordo com o que existe no projeto
+                            if (indice >= marmitas.size() || indice < 0){
+                                System.out.println("Indice inexistente, por favor digite um indice válido");
+                                continue;
+                            }
+                            break;
+                        } catch(NumberFormatException e) {
+                            System.out.println("Por favor digite um número inteiro");
+                            continue;
+                        }
+                    }
 
-                    System.out.println("\nDigite a quantidade adiconar ex: (+10) / (-10)");
-                    quantidade = entrada.nextInt();
-                    entrada.nextLine();
+                    if(indice == 0){
+                        limpar(); // limpa o console
+                        System.out.println("voltando...");
+                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                        limpar(); // limpa o console
+                        break;
+                    }
+
+
+                    while(true){
+                        try{
+                            System.out.println("Digite a quantidade adicionar ex: (+10) / (-10)");
+                            String q = entrada.nextLine();
+                            quantidade = Integer.parseInt(q);
+                            break;
+                        }  catch(NumberFormatException e) {
+                            System.out.println("Por favor digite um número inteiro");
+                            continue;
+                        }
+                    }
 
                     updateMarmitas(marmitas, indice - 1, quantidade);
 
-                    limpar();
+                    limpar(); // limpa o console
 
                     System.out.println("Ação bem sucedida!");
                     Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
@@ -202,8 +267,10 @@ class Marmita {
     }
 }
 
+// Cria a classe Gerente 
 class Gerente {
-    String login;
+    //Atributos
+    String login; 
     String senha;
 
     public Gerente(String login, String senha){
