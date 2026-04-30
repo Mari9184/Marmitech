@@ -27,18 +27,12 @@ public class NewProject{
         arrayCodMarmita.add(004);
         arrayCodMarmita.add(005);
         
-        
-        int[] codmarmita = { 001, 002, 003, 004, 005};//tirar//
-        
         ArrayList<String> arrayNomeMarmita=new ArrayList<String>();
         arrayNomeMarmita.add("Frango com Arroz");
         arrayNomeMarmita.add("Carne Moída com Purê");
         arrayNomeMarmita.add("Macarrão à Bolonhesa");
         arrayNomeMarmita.add("Strogonoff de Frango");
         arrayNomeMarmita.add("Arroz Carreteiro");
-        
-        String[] nomemarmita = {"Frango com Arroz     ", "Carne Moída com Purê", "Macarrão à Bolonhesa", "Strogonoff de Frango", "Arroz Carreteiro    "};//tirar//
-        
         
         ArrayList<Integer> arrayQuantidade=new ArrayList<Integer>();
         arrayQuantidade.add(15);
@@ -47,22 +41,12 @@ public class NewProject{
         arrayQuantidade.add(14);
         arrayQuantidade.add(16);
         
-        
-        int[] quantidademarmita = {15, 12, 10, 14, 16};//tirar//
-        
         ArrayList<Double> arrayValorMarmita=new ArrayList<Double>();
         arrayValorMarmita.add(18.90);
         arrayValorMarmita.add(19.90);
         arrayValorMarmita.add(17.50);
         arrayValorMarmita.add(21.00);
         arrayValorMarmita.add(19.50);
-        
-        
-        double[] valormarmita = {18.90, 19.90, 17.50, 21.00, 19.50};//tirar//
-        
-        
-        
-        
         
         System.out.println("entrando como cliente...");
         try{
@@ -119,8 +103,6 @@ public class NewProject{
                     arrayQuantidade.get(posicao) + "|"+
                     arrayValorMarmita.get(posicao)
                 );
-            
-                
             }
             System.out.println("_____________________________");
             System.out.println("Deseja comprar?");
@@ -188,11 +170,5 @@ public class NewProject{
             System.out.println("Sistema Encerrado");
         }
         e.close();
-        
-        
-        
-        
-        
-        
     }
 }
