@@ -16,7 +16,7 @@ public class FluxoGerente {
         Scanner entrada = new Scanner(System.in); // Instancia um objeto Scanner
 
         // Definições variaveis globais
-        String opcao, login, senha;
+        String opcao, login, senha, nome;
         double valor;
         int indice, quantidade;
         boolean continuar = false;
@@ -68,17 +68,39 @@ public class FluxoGerente {
 
             switch (opcao) {
 
-                case "1":
-                    limpar();
-                    visualizarMarmitas(marmitas);
-                    System.out.println("\nDigite o nome da marmita: ");
-                    String nome = entrada.nextLine();
+                case "1": 
+                    // mantém o loop até digitar um valor válido
+                    while (true) {     
+                        limpar(); // limpa o console
+                        // armazena o nome desejado da marmita 
+                        System.out.println("\nDigite o nome da marmita: ");
+                        nome = entrada.nextLine();
+                        // valida se a String está vazia
+                        if(nome.trim().isEmpty()){
+                            limpar(); // limpa o console
+                            System.out.println("valor vazio, por favor utilize palavras");
+                            Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                            continue;
+                        }
+                        // valida se foi digitado somente letras
+                        if(!nome.matches("[a-zA-ZÀ-ÿ\\s]+")){
+                            limpar(); // limpa o console
+                            System.out.println("Por favor utilize somente palavras");
+                            Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                            continue;
+                        }
+                        break;
+                        }
                 
                     while(true){
                         try{
                             System.out.println("\nDigite a quantidade deste sabor: ");
-                            String q = entrada.nextLine();
-                            quantidade = Integer.parseInt(q);
+                            String quantidadeString = entrada.nextLine();
+                            quantidade = Integer.parseInt(quantidadeString);
+                            if(quantidade<0){
+                                System.out.println("Digite somente valores positivos, se estiver em falta, utilize 0");
+                                continue;
+                            }
                             break;
                         }  catch(NumberFormatException e) {
                             System.out.println("Por favor digite um número inteiro");
@@ -88,8 +110,12 @@ public class FluxoGerente {
                     while(true){
                         try{
                             System.out.println("\nDigite o valor da marmita: ");
-                            String v = entrada.nextLine();
-                            valor = Double.parseDouble(v);
+                            String valorString = entrada.nextLine();
+                            valor = Double.parseDouble(valorString);
+                            if(valor<0){
+                                System.out.println("Digite somente valores positivos, se for um brinde, utilize 0");
+                                continue;
+                            }
                             break;
                          } catch(NumberFormatException e) {
                             System.out.println("Por favor digite um número");
@@ -112,7 +138,7 @@ public class FluxoGerente {
                             String i = entrada.nextLine();
                             indice = Integer.parseInt(i);
                              // verifica se o indice está de acordo com o que existe no projeto
-                            if (indice >= marmitas.size() || indice < 0){
+                            if (indice > marmitas.size() || indice < 0){
                                 System.out.println("Indice inexistente, por favor digite um indice válido");
                                 continue;
                             }
@@ -158,7 +184,7 @@ public class FluxoGerente {
                             String i = entrada.nextLine();
                             indice = Integer.parseInt(i);
                             // verifica se o indice está de acordo com o que existe no projeto
-                            if (indice >= marmitas.size() || indice < 0){
+                            if (indice > marmitas.size() || indice < 0){
                                 System.out.println("Indice inexistente, por favor digite um indice válido");
                                 continue;
                             }
@@ -180,9 +206,14 @@ public class FluxoGerente {
 
                     while(true){
                         try{
-                            System.out.println("Digite a quantidade adicionar ex: (+10) / (-10)");
+                            System.out.println("Digite a quantidade adicionar/retirar ex: (+10) / (-10)");
                             String q = entrada.nextLine();
                             quantidade = Integer.parseInt(q);
+                            
+                            if(marmitas.get(indice-1).quantidade + quantidade < 0){
+                                System.out.println("quantidade insuficiente em estoque");
+                                continue;
+                            }
                             break;
                         }  catch(NumberFormatException e) {
                             System.out.println("Por favor digite um número inteiro");
@@ -192,11 +223,11 @@ public class FluxoGerente {
 
                     updateMarmitas(marmitas, indice - 1, quantidade);
 
-                    limpar(); // limpa o console
+                    // limpar(); // limpa o console
 
                     System.out.println("Ação bem sucedida!");
                     Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                    limpar();
+                    // limpar();
 
                     System.out.println("O estoque se encontra assim:\n");
                     visualizarMarmitas(marmitas);
@@ -205,12 +236,16 @@ public class FluxoGerente {
 
                     break;
 
-                case "5":
-
+                case "4":
                     System.out.println("Encerrando...");
                     Thread.sleep(espera.toMillis());
                     continuar = false;
                     break;
+
+                default:
+                    System.out.println("Opção inválida, por favor digite uma opção válida");
+                    Thread.sleep(espera.toMillis());
+                    limpar();
             }
         }
 
