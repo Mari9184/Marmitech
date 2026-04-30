@@ -53,8 +53,6 @@ public class FluxoFuncionario {
 
     System.out.println("Login realizado com sucesso!!");
     Thread.sleep(2000);
-
-    //-----
     
     limpar();
 
