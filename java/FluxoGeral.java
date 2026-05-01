@@ -19,7 +19,7 @@ public class FluxoGeral {
   String usuario, opcao, opcaoEstoque, login, senha, nome;
   double valor;
   int indice, quantidade, escolha;
-  boolean continuar = false, autenticacao, sistemaCliente = true, menuCliente=false;
+  boolean continuar = false, autenticacao, estoque = false, sistemaCliente = true, menuCliente=false;
 
   // adiciona os valores ao array marmitas
   adicionarMarmitas(marmitas, "Frango com Arroz    ", 15, 18.90);
