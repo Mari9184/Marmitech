@@ -6,13 +6,12 @@ import java.util.Scanner;
 public class FluxoGeral {
   public static void main(String[] args) throws InterruptedException {
 
-
   Duration espera = Duration.ofSeconds(3);
 
-  Gerente gerente = new Gerente("3", "3"); //Instancia o objeto gerente, atribuindo valores aos parametros.
-  Funcionario funcionario = new Funcionario("2", "2"); //Instancia o objeto gerente, atribuindo valores aos parametros.
+  Gerente gerente = new Gerente("gerente3", "gerente3"); //Instancia o objeto gerente, atribuindo valores aos parametros.
+  Funcionario funcionario = new Funcionario("funcionario2", "funcionario2"); //Instancia o objeto gerente, atribuindo valores aos parametros.
 
-
+  ArrayList<Cliente> clientes = new ArrayList<Cliente>(); // Instancia um objeto Cliente do tipo ArrayList, para utilizar vetor de forma dinamica
   ArrayList<Marmita> marmitas = new ArrayList<Marmita>(); // Instancia um objeto do tipo ArrayList, para utilizar vetor de forma dinamica
   Scanner entrada = new Scanner(System.in); // Instancia um objeto Scanner
 
@@ -20,7 +19,7 @@ public class FluxoGeral {
   String usuario, opcao, opcaoEstoque, login, senha, nome;
   double valor;
   int indice, quantidade, escolha;
-  boolean continuar = false, estoque = false;
+  boolean continuar = false, autenticacao, sistemaCliente = true, menuCliente=false;
 
   // adiciona os valores ao array marmitas
   adicionarMarmitas(marmitas, "Frango com Arroz    ", 15, 18.90);
@@ -28,6 +27,14 @@ public class FluxoGeral {
   adicionarMarmitas(marmitas, "Macarrão à Bolonhesa", 10, 17.50);
   adicionarMarmitas(marmitas, "Strogonoff de Frango", 14, 21.00);
   adicionarMarmitas(marmitas, "Arroz Carreteiro    ", 16, 21.50);
+  limpar(); // limpa o console
+  
+  // adiciona os valores ao array clientes
+  adicionarClientes(clientes, "cliente1", "cliente1");
+  adicionarClientes(clientes, "cliente2", "cliente2");
+  adicionarClientes(clientes, "cliente3", "cliente3");
+  adicionarClientes(clientes, "cliente4", "cliente4");
+  adicionarClientes(clientes, "cliente5", "cliente5");
   limpar(); // limpa o console
 
   System.out.println("Iniciando Sistema ...");
@@ -42,15 +49,155 @@ public class FluxoGeral {
     System.out.println("______________________________");
 
     System.out.println("\nCom qual opção deseja executar?");
-    usuario = entrada.next();
+    usuario = entrada.nextLine();
     limpar();
 
     switch(usuario){
 
       case "1":
-        System.out.println("Cliente?");
+        System.out.println("Iniciando como Cliente...");
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-        limpar(); // limpa o console
+        
+        while (sistemaCliente) {  
+            while(true){
+                limpar(); // limpa o console
+                autenticacao = false;
+                System.out.println("Deseja realizar o login?(ou 0 para sair) \n1 - Sim\n2 - Não");
+                String realizarLogin = entrada.nextLine();
+    
+                if(realizarLogin.equals("2")){
+                    menuCliente = true;
+                    break;
+                }
+                else if (realizarLogin.equals("0")) {
+                  limpar();
+                  System.out.println("Voltando...");
+                  Thread.sleep(espera.toMillis());
+                  sistemaCliente = false;
+                  break;
+
+                } 
+                limpar();// limpa o console
+                System.out.print("Login: "); 
+                login=entrada.nextLine();
+    
+                System.out.print("Senha: "); 
+                senha=entrada.nextLine();
+                limpar(); // limpa o console
+    
+                for(Cliente cliente : clientes){
+                    if (login.equals(cliente.login) && senha.equals(cliente.senha)){
+                        autenticacao=true;
+                        menuCliente = true;
+                        System.out.println("Login realizado com sucesso!!");
+                        Thread.sleep(2000);
+                        break;
+                    } 
+                }
+                if (!autenticacao) {
+                    System.out.println("Login ou senha inválidos!");
+                    Thread.sleep(2000);
+                }
+                break;
+            }
+            if (!sistemaCliente) {
+                
+              break;
+            }
+            while(menuCliente) {
+                limpar();
+                System.out.println("Acessando Menu...");
+                Thread.sleep(2000);
+
+                limpar();
+
+                visualizarMarmitas(marmitas);
+
+                System.out.println("\nDeseja comprar?\n1 - Sim\n2 - Não");
+                opcao = entrada.nextLine();
+    
+                switch (opcao) {
+                    case "1":
+                        limpar();
+                        visualizarMarmitas(marmitas);
+
+                        // Cria o loop para manter até informar um numero inteiro
+                        while(true){
+                            try {
+                                System.out.println("\nDigite o código da marmita desejada: (ou 0 para sair)");
+                                String i = entrada.nextLine();
+                                indice = Integer.parseInt(i);
+                                indice -= 1;
+                                if(indice == -1){
+                                    break;
+                                }
+                                // verifica se o indice está de acordo com o que existe no projeto
+                                if (indice >= marmitas.size() || indice < 0){
+                                    System.out.println("Indice inexistente, por favor digite um indice válido");
+                                    continue;
+                                }
+                                break;
+                            } catch(NumberFormatException e) {
+                                System.out.println("Por favor digite um número inteiro");
+                                continue;
+                            }
+                        }
+
+                        if(indice == -1){
+                            limpar(); // limpa o console
+                            System.out.println("voltando...");
+                            Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                            limpar(); // limpa o console
+                            break;
+                        }
+
+                        limpar();
+                        while(true){
+                            System.out.println("Marmita - " + marmitas.get(indice).nome);
+                            try{
+                                System.out.println("Digite a quantidade que deseja comprar: (ou 0 para sair)");
+                                String quantidadeString = entrada.nextLine();
+                                quantidade = Integer.parseInt(quantidadeString);
+
+                                
+                                if(quantidade<0){
+                                    System.out.println("Por favor Digite um número positivo");
+                                    continue;
+                                }  
+                                else if(marmitas.get(indice).quantidade - quantidade < 0){
+                                    System.out.println("quantidade insuficiente em estoque");
+                                    continue;
+                                }
+                                break;
+                            }  catch(NumberFormatException e) {
+                                System.out.println("Por favor digite um número inteiro");
+                                continue;
+                            }
+                        }
+
+                        if(quantidade == 0){
+                          System.out.println("Voltando...");
+                          Thread.sleep(espera.toMillis());
+                          continuar = false;
+                          break;
+                        }
+                        comprarMarmitas(marmitas, indice, quantidade);
+                        System.out.println("Ação bem sucedida!");
+                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                        break;
+
+                    case "2":
+                        menuCliente = false;
+                        System.out.println("Voltando...");
+                        Thread.sleep(espera.toMillis());
+                        break;
+                    default:
+                        System.out.println("Opção inválida, por favor digite uma opção válida");
+                        Thread.sleep(espera.toMillis());
+                        limpar();
+                }
+            }
+        }
         break;
 
       case "2":
@@ -539,7 +686,7 @@ public class FluxoGeral {
 
             case "5":
 
-              System.out.println("Encerrando...");
+              System.out.println("Voltando...");
               Thread.sleep(espera.toMillis());
               continuar = false;
               break;
@@ -555,14 +702,24 @@ public class FluxoGeral {
       
       case "4":
         System.out.println("Encerrando...");
+        entrada.close();
         return; // encerra o programa corretamente
       }
     }
   }
   
+  
 
   public static void adicionarMarmitas(ArrayList<Marmita> marmitas, String nome, int quantidade, double valor) {
     marmitas.add(new Marmita(nome, quantidade, valor));
+  }
+  public static void adicionarClientes(ArrayList<Cliente>clientes, String login, String senha){
+    clientes.add(new Cliente(login, senha));
+  }
+
+  public static void comprarMarmitas(ArrayList<Marmita> marmitas, int indice, int quantidade) {
+    Marmita m = marmitas.get(indice);
+    m.quantidade -= quantidade;
   }
 
   public static void visualizarMarmitas(ArrayList<Marmita> marmitas) {
@@ -599,6 +756,7 @@ public class FluxoGeral {
   }
 }
 
+
 class Marmita {
     String nome;
     double valor;
@@ -628,6 +786,17 @@ class Gerente {
     String senha;
 
     public Gerente(String login, String senha){
+        this.login = login;
+        this.senha = senha;
+    }
+}
+
+class Cliente {
+    //Atributos
+    String login; 
+    String senha;
+
+    public Cliente(String login, String senha){
         this.login = login;
         this.senha = senha;
     }
