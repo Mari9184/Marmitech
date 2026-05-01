@@ -1,5 +1,5 @@
 //Projeto Integrador: Gerenciamento de Estoque
-//Versсo Java 21
+//Versсo Java 21.0
 //Grupo: Ariel Isidro Nina Saavedra, Bruno Geanini dos Reis, Gabriel Tolcsvai de Cronis, Heloísa Weiss Willwohl Sanches, Mariane Santana da Silva, Miguel Augusto de Oliveira Santos
 
 import java.io.IOException;
@@ -45,7 +45,11 @@ public class FluxoCliente{
                 if(realizarLogin.equals("2")){
                     menuCliente = true;
                     break;
-                } 
+                } else if(!realizarLogin.equals("1")){
+                  System.out.println("Opção inválida, Digite um numero válido");
+                  Thread.sleep(1000); //Espera de 1 seg, meramente visual
+                  continue;
+                }
                 limpar();
                 System.out.print("Login: "); 
                 login=entrada.nextLine();
