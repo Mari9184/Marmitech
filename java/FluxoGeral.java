@@ -62,26 +62,31 @@ public class FluxoGeral {
       case "1":
         System.out.println("Iniciando como Cliente...");
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-        
+        // mantem o cliente rodando
         while (sistemaCliente) {  
             while(true){
                 limpar(); // limpa o console
-                autenticacao = false;
-                System.out.println("Deseja realizar o login?(ou 0 para sair) \n1 - Sim\n2 - Não");
+                autenticacao = false; // define a autenticacao como falso
+                //questiona a opção do usuário para acessar, ou sair do fluxo
+                System.out.println("Deseja realizar o login?(ou 0 para sair) \n1 - Sim\n2 - Não"); 
                 String realizarLogin = entrada.nextLine();
-    
+              
+                // verifica se o  usuario não deseja fazer login
                 if(realizarLogin.equals("2")){
-                    menuCliente = true;
+                    menuCliente = true; // ativa a condição para iniciar o menu
                     break;
                 }
+                // caso digite 0, encerra o looping de login
                 else if (realizarLogin.equals("0")) {
                   limpar();
                   System.out.println("Voltando...");
-                  Thread.sleep(espera.toMillis());
-                  sistemaCliente = false;
+                  Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                  sistemaCliente = false; // desativa o fluxo de cliente
                   break;
 
                 } 
+
+                // entrada de daddos para realizar o acesso
                 limpar();// limpa o console
                 System.out.print("Login: "); 
                 login=entrada.nextLine();
@@ -90,38 +95,46 @@ public class FluxoGeral {
                 senha=entrada.nextLine();
                 limpar(); // limpa o console
     
+                // looping para passar por todos os objetos do arraylist
                 for(Cliente cliente : clientes){
+                    //verifica se os dados de entrada condizem com os armazenados
                     if (login.equals(cliente.login) && senha.equals(cliente.senha)){
-                        autenticacao=true;
-                        menuCliente = true;
+                        autenticacao=true; // armazena a informação que foi autenticado um usuario
+                        menuCliente = true;  // ativa a condição para iniciar o menu
                         System.out.println("Login realizado com sucesso!!");
                         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                         break;
                     } 
                 }
+                //verifica se autenticacao é falsa e informa que o login está inválido
                 if (!autenticacao) {
                     System.out.println("Login ou senha inválidos!");
                     Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                 }
                 break;
             }
+            // verifica se o sistema cliente foi finalizado, para encerra-lo
             if (!sistemaCliente) {
-                
               break;
             }
+            // inicia o lopping do menu
             while(menuCliente) {
-                limpar();
+                // informação que está entrando no menu
+                limpar(); // limpa o console
                 System.out.println("Acessando Menu...");
                 Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-
-                limpar();
-
+ 
+                limpar(); // limpa o console
+                
+                //apresenta a lista de marmitas
                 visualizarMarmitas(marmitas);
 
+                //recebe a entrada para utilizar na escolha do menu
                 System.out.println("\nDeseja comprar?\n1 - Sim\n2 - Não");
                 opcao = entrada.nextLine();
     
                 switch (opcao) {
+                    // entra na opção de compra
                     case "1":
                         limpar();
                         visualizarMarmitas(marmitas);
@@ -264,7 +277,6 @@ public class FluxoGeral {
             case "2":
 
               estoque = true;
-
               while (estoque) {
 
                 System.out.println("________ Ações do Estoque ________");
