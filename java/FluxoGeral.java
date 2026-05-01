@@ -1,3 +1,7 @@
+//Projeto Integrador: Gerenciamento de Estoque
+//Versсo Portugol Webstudio
+//Grupo: Ariel Isidro Nina Saavedra, Bruno Geanini dos Reis, Gabriel Tolcsvai de Cronis, Heloísa Weiss Willwohl Sanches, Mariane Santana da Silva, Miguel Augusto de Oliveira Santos
+
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -6,7 +10,7 @@ import java.util.Scanner;
 public class FluxoGeral {
   public static void main(String[] args) throws InterruptedException {
 
-  Duration espera = Duration.ofSeconds(3);
+  Duration espera = Duration.ofSeconds(2);
 
   Gerente gerente = new Gerente("gerente3", "gerente3"); //Instancia o objeto gerente, atribuindo valores aos parametros.
   Funcionario funcionario = new Funcionario("funcionario2", "funcionario2"); //Instancia o objeto gerente, atribuindo valores aos parametros.
@@ -44,16 +48,17 @@ public class FluxoGeral {
   while (true) { 
       
     limpar();
+    // Menu principal
     System.out.println("________ Entrar como: ________");
     System.out.println("\n  1 - Cliente \n  2 - Funcionario \n  3 - Gerente  \n  4 - Encerrar");
     System.out.println("______________________________");
-
     System.out.println("\nCom qual opção deseja executar?");
     usuario = entrada.nextLine();
     limpar();
 
+    // escolha do menu principal
     switch(usuario){
-
+      // opção para iniciar o usuario
       case "1":
         System.out.println("Iniciando como Cliente...");
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
@@ -90,13 +95,13 @@ public class FluxoGeral {
                         autenticacao=true;
                         menuCliente = true;
                         System.out.println("Login realizado com sucesso!!");
-                        Thread.sleep(2000);
+                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                         break;
                     } 
                 }
                 if (!autenticacao) {
                     System.out.println("Login ou senha inválidos!");
-                    Thread.sleep(2000);
+                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                 }
                 break;
             }
@@ -107,7 +112,7 @@ public class FluxoGeral {
             while(menuCliente) {
                 limpar();
                 System.out.println("Acessando Menu...");
-                Thread.sleep(2000);
+                Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
 
                 limpar();
 
@@ -218,14 +223,14 @@ public class FluxoGeral {
           break;
           }
           System.out.println("login Invalido!\nDigite novamente\n");
-          Thread.sleep(2000);
+          Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
           limpar(); // limpa o console
           continue;
         }
 
 
         System.out.println("Login realizado com sucesso!!");
-        Thread.sleep(2000);
+        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
         
         limpar();
 
@@ -244,14 +249,14 @@ public class FluxoGeral {
             case "1":
 
               System.out.println("Abrindo Notificações...");
-              Thread.sleep(espera.toMillis());
+              Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
               limpar();
 
               System.out.println("_____ Notificações _____");
               System.out.println("\n Em manutenção...");
 
               System.out.println("\n Em alguens segundodos será redirecionado...");
-              Thread.sleep(espera.toMillis());
+              Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
               limpar();
 
             break;
@@ -285,7 +290,7 @@ public class FluxoGeral {
                         if (escolha == 0) {
                           limpar();
                           System.out.println("voltando...");
-                          Thread.sleep(espera.toMillis());
+                          Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                           limpar();
                           break;
                         } else {
@@ -342,23 +347,23 @@ public class FluxoGeral {
 
                       limpar();
                       System.out.println("Ação bem sucedida!");
-                      Thread.sleep(espera.toMillis());
+                      Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
 
                       visualizarMarmitas(marmitas);
-                      Thread.sleep(espera.toMillis());
+                      Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                       limpar();
 
                       break;
 
                     case "3": 
                       System.out.println("Encerrando...");
-                      Thread.sleep(espera.toMillis());
+                      Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                       estoque = false;
                       break;
 
                     default:
                       System.out.println("Opção inválida");
-                      Thread.sleep(espera.toMillis());
+                      Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                       limpar();
                   
                 }
@@ -369,14 +374,14 @@ public class FluxoGeral {
             case "3":
 
               System.out.println("Abrindo Pedidos...");
-              Thread.sleep(espera.toMillis());
+              Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
               limpar();
 
               System.out.println("_____ Pedidos _____");
               System.out.println("\n Em manutenção...");
 
               System.out.println("\n Em alguens segundodos será redirecionado...");
-              Thread.sleep(espera.toMillis());
+              Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
               limpar();
 
               break;
@@ -384,7 +389,7 @@ public class FluxoGeral {
 
             case "4":
                   System.out.println("Voltando...");
-                  Thread.sleep(espera.toMillis());
+                  Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                   limpar();
                   continuar = false;
               break;
@@ -411,13 +416,13 @@ public class FluxoGeral {
           break;
           }
           System.out.println("login Invalido!\nDigite novamente\n");
-          Thread.sleep(2000);
+          Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
           limpar(); // limpa o console
           continue;
         }
 
         System.out.println("Login realizado com sucesso!!");
-        Thread.sleep(2000);
+        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
     
         limpar();
 
