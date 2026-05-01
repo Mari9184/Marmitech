@@ -1,3 +1,7 @@
+//Projeto Integrador: Gerenciamento de Estoque
+//Versсo Portugol Webstudio
+//Grupo: Ariel Isidro Nina Saavedra, Bruno Geanini dos Reis, Gabriel Tolcsvai de Cronis, Heloísa Weiss Willwohl Sanches, Mariane Santana da Silva, Miguel Augusto de Oliveira Santos
+
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -7,31 +11,29 @@ public class FluxoGerente {
   public static void main(String[] args) throws InterruptedException {
 
 
-    Duration espera = Duration.ofSeconds(3);
+    Duration espera = Duration.ofSeconds(2);
 
-    Gerente gerente = new Gerente("1", "1"); //Instancia o objeto gerente, atribuindo valores aos parametros.
+    Gerente gerente = new Gerente("1", "1"); 
 
 
-    ArrayList<Marmita> marmitas = new ArrayList<Marmita>(); // Instancia um objeto do tipo ArrayList, para utilizar vetor de forma dinamica
-    Scanner entrada = new Scanner(System.in); // Instancia um objeto Scanner
+    ArrayList<Marmita> marmitas = new ArrayList<Marmita>(); 
+    Scanner entrada = new Scanner(System.in); 
 
-    // Definições variaveis globais
     String opcao, opcaoEstoque, login, senha, nome;
     double valor;
-    int indice, quantidade, escolha;
+    int indice, quantidade;
     boolean continuar = false, estoque = false;
 
-    // adiciona os valores ao array marmitas
     adicionarMarmitas(marmitas, "Frango com Arroz    ", 15, 18.90);
     adicionarMarmitas(marmitas, "Carne Moída com Purê", 12, 19.90);
     adicionarMarmitas(marmitas, "Macarrão à Bolonhesa", 10, 17.50);
     adicionarMarmitas(marmitas, "Strogonoff de Frango", 14, 21.00);
     adicionarMarmitas(marmitas, "Arroz Carreteiro    ", 16, 21.50);
-    limpar(); // limpa o console
+    limpar(); 
 
     System.out.println("Iniciando como Gerente...");
-    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-    limpar(); // limpa o console
+    Thread.sleep(espera.toMillis()); 
+    limpar(); 
 
     while(true){
       System.out.print("Login: "); 
@@ -39,21 +41,21 @@ public class FluxoGerente {
 
       System.out.print("Senha: "); 
       senha=entrada.nextLine();
-      limpar(); // limpa o console
+      limpar(); 
 
       if (login.equals(gerente.login) && senha.equals(gerente.senha)){
       continuar=true;
       break;
       }
       System.out.println("login Invalido!\nDigite novamente\n");
-      Thread.sleep(2000);
-      limpar(); // limpa o console
+      Thread.sleep(espera.toMillis());
+      limpar(); 
       continue;
     }
 
 
     System.out.println("Login realizado com sucesso!!");
-    Thread.sleep(2000);
+    Thread.sleep(espera.toMillis());
     
     limpar();
 
@@ -104,27 +106,25 @@ public class FluxoGerente {
 
               case "1":
 
-                // mantém o loop até digitar um valor válido
                   while (true) {     
-                    limpar(); // limpa o console
+                    limpar(); 
 
-                    visualizarMarmitas(marmitas);// visualiza marmita
+                    visualizarMarmitas(marmitas);
 
-                    // armazena o nome desejado da marmita 
                     System.out.println("\nDigite o nome da marmita: ");
                     nome = entrada.nextLine();
-                    // valida se a String está vazia
+  
                     if(nome.trim().isEmpty()){
-                      limpar(); // limpa o console
+                      limpar(); 
                       System.out.println("valor vazio, por favor utilize palavras");
-                      Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                      Thread.sleep(espera.toMillis()); 
                       continue;
                       }
-                      // valida se foi digitado somente letras
+
                       if(!nome.matches("[a-zA-ZÀ-ÿ\\s]+")){
-                        limpar(); // limpa o console
+                        limpar(); 
                         System.out.println("Por favor utilize somente palavras");
-                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                        Thread.sleep(espera.toMillis()); 
                         continue;
                       }
                       break;
@@ -167,7 +167,7 @@ public class FluxoGerente {
 
               case "2":
 
-                limpar(); // limpa o console
+                limpar(); 
                   visualizarMarmitas(marmitas);
 
                   while(true){
@@ -175,7 +175,7 @@ public class FluxoGerente {
                       System.out.println("\nDigite o cod do item que deseja remover: (ou 0 para sair)");
                       String i = entrada.nextLine();
                       indice = Integer.parseInt(i);
-                        // verifica se o indice está de acordo com o que existe no projeto
+
                       if (indice > marmitas.size() || indice < 0){
                         System.out.println("Indice inexistente, por favor digite um indice válido");
                         continue;
@@ -188,40 +188,39 @@ public class FluxoGerente {
                   }
 
                   if(indice == 0){
-                    limpar(); // limpa o console
+                    limpar(); 
                     System.out.println("voltando...");
-                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                    limpar(); // limpa o console
+                    Thread.sleep(espera.toMillis()); 
+                    limpar(); 
                     break;
                   }
 
                   removerMarmitas(marmitas, indice - 1);
 
-                  limpar(); // limpa o console
+                  limpar();
 
                   System.out.println("Ação bem sucedida!");
-                  Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                  limpar(); // limpa o console
+                  Thread.sleep(espera.toMillis()); 
+                  limpar(); 
 
                   System.out.println("O estoque se encontra assim:\n");
                   visualizarMarmitas(marmitas);
-                  Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                  limpar(); // limpa o console
+                  Thread.sleep(espera.toMillis()); 
+                  limpar(); 
 
                   break;
               
               case "3":
 
-                limpar(); // limpa o console
+                limpar(); 
                   visualizarMarmitas(marmitas);
 
-                  // Cria o loop para manter até informar um numero inteiro
                   while(true){
                     try {
                       System.out.println("\nDigite o cod do item que deseja alterar: (ou 0 para sair)");
                       String i = entrada.nextLine();
                       indice = Integer.parseInt(i);
-                      // verifica se o indice está de acordo com o que existe no projeto
+
                       if (indice > marmitas.size() || indice < 0){
                         System.out.println("Indice inexistente, por favor digite um indice válido");
                         continue;
@@ -234,10 +233,10 @@ public class FluxoGerente {
                   }
 
                   if(indice == 0){
-                    limpar(); // limpa o console
+                    limpar(); 
                     System.out.println("voltando...");
-                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                    limpar(); // limpa o console
+                    Thread.sleep(espera.toMillis()); 
+                    limpar(); 
                     break;
                   }
 
@@ -261,15 +260,12 @@ public class FluxoGerente {
 
                   updateMarmitas(marmitas, indice - 1, quantidade);
 
-                  // limpar(); // limpa o console
-
                   System.out.println("Ação bem sucedida!");
-                  Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                  // limpar();
+                  Thread.sleep(espera.toMillis());
 
                   System.out.println("O estoque se encontra assim:\n");
                   visualizarMarmitas(marmitas);
-                  Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                  Thread.sleep(espera.toMillis()); 
                   limpar();
 
                 break;
@@ -388,9 +384,9 @@ class Marmita {
     }
 }
 
-// Cria a classe Gerente 
+
 class Gerente {
-    //Atributos
+
     String login; 
     String senha;
 
