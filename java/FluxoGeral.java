@@ -1,5 +1,5 @@
 //Projeto Integrador: Gerenciamento de Estoque
-//Versсo Portugol Webstudio
+//Versсo java 21.0
 //Grupo: Ariel Isidro Nina Saavedra, Bruno Geanini dos Reis, Gabriel Tolcsvai de Cronis, Heloísa Weiss Willwohl Sanches, Mariane Santana da Silva, Miguel Augusto de Oliveira Santos
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class FluxoGeral {
   String usuario, opcao, opcaoEstoque, login, senha, nome;
   double valor;
   int indice, quantidade, escolha;
-  boolean continuar = false, autenticacao, estoque = false, sistemaCliente = true, menuCliente=false;
+  boolean continuar = false, autenticacao, estoque = false, sistemaCliente = false, menuCliente=false;
 
   // adiciona os valores ao array marmitas
   adicionarMarmitas(marmitas, "Frango com Arroz    ", 15, 18.90);
@@ -61,6 +61,7 @@ public class FluxoGeral {
       // opção para iniciar o usuario
       case "1":
         System.out.println("Iniciando como Cliente...");
+        sistemaCliente = true;
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
         // mantem o cliente rodando
         while (sistemaCliente) {  
@@ -84,7 +85,11 @@ public class FluxoGeral {
                   sistemaCliente = false; // desativa o fluxo de cliente
                   break;
 
-                } 
+                } else if(!realizarLogin.equals("1")){
+                  System.out.println("Opção inválida, Digite um numero válido");
+                  Thread.sleep(1000); //Espera de 1 seg, meramente visual
+                  continue;
+                }
 
                 // entrada de daddos para realizar o acesso
                 limpar();// limpa o console
@@ -145,6 +150,7 @@ public class FluxoGeral {
                                 System.out.println("\nDigite o código da marmita desejada: (ou 0 para sair)");
                                 String i = entrada.nextLine();
                                 indice = Integer.parseInt(i);
+                                // diminui o indice para que se iguale ao indice do vetor
                                 indice -= 1;
                                 if(indice == -1){
                                     break;
@@ -155,12 +161,13 @@ public class FluxoGeral {
                                     continue;
                                 }
                                 break;
+                            // verifica se o número digitado é inteiro
                             } catch(NumberFormatException e) {
                                 System.out.println("Por favor digite um número inteiro");
                                 continue;
                             }
                         }
-
+                        // verifica se o valor digitado foi 0 (como formata diminuindo 1, o valor 0 digitado pelo usuario vira -1)
                         if(indice == -1){
                             limpar(); // limpa o console
                             System.out.println("voltando...");
@@ -169,7 +176,8 @@ public class FluxoGeral {
                             break;
                         }
 
-                        limpar();
+                        limpar(); // limpa o console
+                        // abre o looping para comprar a marmita
                         while(true){
                             System.out.println("Marmita - " + marmitas.get(indice).nome);
                             try{
@@ -177,7 +185,7 @@ public class FluxoGeral {
                                 String quantidadeString = entrada.nextLine();
                                 quantidade = Integer.parseInt(quantidadeString);
 
-                                
+                                // validação se foi número positivo, se tem a quantidade em estoque e se é numero inteiro
                                 if(quantidade<0){
                                     System.out.println("Por favor Digite um número positivo");
                                     continue;
@@ -193,22 +201,24 @@ public class FluxoGeral {
                             }
                         }
 
+                        // valida se digitou 0 para sair
                         if(quantidade == 0){
                           System.out.println("Voltando...");
                           Thread.sleep(espera.toMillis());
                           continuar = false;
                           break;
                         }
-                        comprarMarmitas(marmitas, indice, quantidade);
+                        comprarMarmitas(marmitas, indice, quantidade); // executa a função para realizar a compra e subtrair a quantidade em sistema
                         System.out.println("Ação bem sucedida!");
                         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                         break;
-
+                    //desativa o menu cliente encerrando o fluxo de menu
                     case "2":
                         menuCliente = false;
                         System.out.println("Voltando...");
                         Thread.sleep(espera.toMillis());
                         break;
+                    // pede uma opção válida em caso de digitar algo fora das opções
                     default:
                         System.out.println("Opção inválida, por favor digite uma opção válida");
                         Thread.sleep(espera.toMillis());
@@ -217,12 +227,13 @@ public class FluxoGeral {
             }
         }
         break;
-
+      // entra no fluxo do funcionário
       case "2":
         System.out.println("Iniciando como Funcionario...");
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
         limpar(); // limpa o console
 
+        // inicia looping de login
         while(true){
           System.out.print("Login: "); 
           login=entrada.next();
@@ -231,8 +242,9 @@ public class FluxoGeral {
           senha=entrada.next();
           limpar(); // limpa o console
 
+          // valida se os dados digitados condizem com o funcionário cadastrado
           if (login.equals(funcionario.login) && senha.equals(funcionario.senha)){
-          continuar=true;
+            continuar=true;
           break;
           }
           System.out.println("login Invalido!\nDigite novamente\n");
@@ -247,6 +259,7 @@ public class FluxoGeral {
         
         limpar();
 
+        // entra no looping onde o funcionário pode editar
         while (continuar) {  
 
           System.out.println("________ Ações ________");
@@ -257,8 +270,10 @@ public class FluxoGeral {
           opcao = entrada.nextLine();
           limpar();
 
+          // abertura das escplhas das opções do funcionario
           switch (opcao) {
 
+            // abre notificações
             case "1":
 
               System.out.println("Abrindo Notificações...");
@@ -268,15 +283,17 @@ public class FluxoGeral {
               System.out.println("_____ Notificações _____");
               System.out.println("\n Em manutenção...");
 
-              System.out.println("\n Em alguens segundodos será redirecionado...");
+              System.out.println("\n Em alguens segundos será redirecionado...");
               Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
               limpar();
 
             break;
 
+            // abre o estoque
             case "2":
 
               estoque = true;
+              // inicia o menu do estoque
               while (estoque) {
 
                 System.out.println("________ Ações do Estoque ________");
@@ -287,13 +304,16 @@ public class FluxoGeral {
                 opcaoEstoque = entrada.nextLine();
                 limpar();
 
+                // escolha das opções do estoque
                 switch (opcaoEstoque) {
 
+                  // visualizar o estoque de marmitas
                   case "1":
 
                     limpar();
                     visualizarMarmitas(marmitas);
 
+                    // mantém a visualização do estoque até digitar 0 
                     while (true) {
                       try {
                         System.out.println("\nDigite 0 para voltar: ");
@@ -315,12 +335,13 @@ public class FluxoGeral {
                     }
 
                       break;
-
+                    // alteração de marmitas
                     case "2":
 
                       limpar();
                       visualizarMarmitas(marmitas);
 
+                      // mantém executando até informar um indice válido
                       while (true) {
                         try {
                           System.out.println("\nDigite o cod do item (ou 0 para sair)");
@@ -336,9 +357,10 @@ public class FluxoGeral {
                             System.out.println("Digite um número inteiro");
                         }
                       }
-
+                      // se digitar indice 0 quebra 
                       if (indice == 0) break;
 
+                      // mantém executando até informar uma quantidade válidade
                       while (true) {
                         try {
                           System.out.println("Digite a quantidade (+/-)");
@@ -355,24 +377,26 @@ public class FluxoGeral {
                         }
                       }
 
-                      updateMarmitas(marmitas, indice - 1, quantidade);
+                      updateMarmitas(marmitas, indice - 1, quantidade); // função que atualiza a quantidade da marmita
 
                       limpar();
                       System.out.println("Ação bem sucedida!");
                       Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
 
-                      visualizarMarmitas(marmitas);
+                      visualizarMarmitas(marmitas); 
                       Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                       limpar();
 
                       break;
-
+                    
+                    // encerra o menu do estoque
                     case "3": 
                       System.out.println("Encerrando...");
                       Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                       estoque = false;
                       break;
-
+                    
+                    // opção inválida
                     default:
                       System.out.println("Opção inválida");
                       Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
@@ -382,7 +406,7 @@ public class FluxoGeral {
               }
 
               break;
-            
+            // abre pedidos 
             case "3":
 
               System.out.println("Abrindo Pedidos...");
@@ -392,13 +416,13 @@ public class FluxoGeral {
               System.out.println("_____ Pedidos _____");
               System.out.println("\n Em manutenção...");
 
-              System.out.println("\n Em alguens segundodos será redirecionado...");
+              System.out.println("\n Em alguens segundos será redirecionado...");
               Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
               limpar();
 
               break;
 
-
+            // desativa o menu de funcionario voltando para o fluxo principal
             case "4":
                   System.out.println("Voltando...");
                   Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
@@ -409,12 +433,13 @@ public class FluxoGeral {
             }
           }
             break;
-
+      // abre o fluxo de gerente
       case "3":
         System.out.println("Iniciando como Gerente...");
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
         limpar(); // limpa o console
-
+        
+        // inicia lopping de entrar na conta do gerente
         while(true){
           System.out.print("Login: "); 
           login=entrada.next();
@@ -437,7 +462,7 @@ public class FluxoGeral {
         Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
     
         limpar();
-
+        // inicia o looping do menu do gerente
         while (continuar) {
 
           limpar();
@@ -450,7 +475,7 @@ public class FluxoGeral {
           limpar();
 
           switch (opcao) {
-
+            // abre notificações
             case "1":
 
               System.out.println("Abrindo Notificações...");
@@ -465,11 +490,12 @@ public class FluxoGeral {
               limpar();
 
             break;
-
+            // abre o menu de estoque
             case "2":
 
               estoque = true;
 
+              // inicia o looping de se manter no menu de estoque
               while (estoque) {
 
                 limpar();
@@ -480,9 +506,9 @@ public class FluxoGeral {
                 System.out.println("\nQual opção deseja executar?");
                 opcaoEstoque = entrada.nextLine();
                 limpar();
-
-                switch (opcaoEstoque) {
-
+                // escolha de opções de estoque
+                switch (opcaoEstoque) { 
+                  // realiza a criação da marmita
                   case "1":
 
                     // mantém o loop até digitar um valor válido
@@ -510,7 +536,7 @@ public class FluxoGeral {
                           }
                           break;
                           }
-                  
+                      // mantém executando até colocar um valor de quantidade válido
                       while(true){
                         try{
                           System.out.println("\nDigite a quantidade deste sabor: ");
@@ -526,6 +552,7 @@ public class FluxoGeral {
                             continue;
                         }
                       }
+                      // mantém executando até colocar um valor válido
                       while(true){
                           try{
                             System.out.println("\nDigite o valor da marmita: ");
@@ -546,6 +573,7 @@ public class FluxoGeral {
                       limpar();
                       break;
 
+                  // entra no fluxo de remover a marmita
                   case "2":
 
                     limpar(); // limpa o console
@@ -590,7 +618,7 @@ public class FluxoGeral {
                       limpar(); // limpa o console
 
                       break;
-                  
+                  // entra no fluxo para alterar a quantidade da marmita
                   case "3":
 
                     limpar(); // limpa o console
@@ -622,7 +650,7 @@ public class FluxoGeral {
                         break;
                       }
 
-
+                      // executa até informar um valor válido
                       while(true){
                         try{
                           System.out.println("Digite a quantidade adicionar/retirar ex: (+10) / (-10)");
@@ -654,13 +682,13 @@ public class FluxoGeral {
                       limpar();
 
                     break;
-
+                  // encerra o fluxo do estoque
                   case "4": 
                     System.out.println("Encerrando...");
                     Thread.sleep(espera.toMillis());
                     estoque = false;
                     break;
-
+                  // opção inválida
                   default:
                     System.out.println("Opção inválida");
                     Thread.sleep(espera.toMillis());
@@ -669,9 +697,7 @@ public class FluxoGeral {
               }
 
               break;
-
-              
-          
+            // abre pedidos
             case "3":
 
               System.out.println("Abrindo Pedidos...");
@@ -687,7 +713,7 @@ public class FluxoGeral {
 
               break;
 
-
+            // abre gerenciamento de funcionarios
             case "4":
               System.out.println("Entrando em Gerenciamento de Funcionarios...");
               Thread.sleep(espera.toMillis());
@@ -701,13 +727,14 @@ public class FluxoGeral {
               limpar();
               break;
 
+            // desativa o fluxo gerente e volta para o fluxo principal
             case "5":
 
               System.out.println("Voltando...");
               Thread.sleep(espera.toMillis());
               continuar = false;
               break;
-
+            // opção inválida, pede para informar uma opção válida
             default:
               System.out.println("Opção inválida, por favor digite uma opção válida");
               Thread.sleep(espera.toMillis());
@@ -716,7 +743,7 @@ public class FluxoGeral {
         }
     
         break;
-      
+      // encerra o programa
       case "4":
         System.out.println("Encerrando...");
         entrada.close();
@@ -726,19 +753,22 @@ public class FluxoGeral {
   }
   
   
-
+  // Função para adicionar marmitas, onde recebe o arraylist, e os atributos da classe marmita
   public static void adicionarMarmitas(ArrayList<Marmita> marmitas, String nome, int quantidade, double valor) {
     marmitas.add(new Marmita(nome, quantidade, valor));
   }
+   // Função para adicionar cliente, onde recebe o arraylist, e os atributos da classe clientes
   public static void adicionarClientes(ArrayList<Cliente>clientes, String login, String senha){
     clientes.add(new Cliente(login, senha));
   }
 
+  // Função para o cliente realizar a compra, recebe o arraylist marmita, o indice da marmita escolhida e a quantidade
   public static void comprarMarmitas(ArrayList<Marmita> marmitas, int indice, int quantidade) {
     Marmita m = marmitas.get(indice);
     m.quantidade -= quantidade;
   }
 
+  // Função para vizualizar todas as marmitas, recebe o arraylist da marmita
   public static void visualizarMarmitas(ArrayList<Marmita> marmitas) {
     int visualizador;
     System.out.println(" Cod |         Sabor         | qtd | Valor ");
@@ -751,17 +781,21 @@ public class FluxoGeral {
     }
   }
 
+  // Função para remover marmitas, recebe o arraylist marmita, o indice da marmita escolhida
   public static void removerMarmitas(ArrayList<Marmita> marmitas, int indice) {
     marmitas.remove(indice);
   }
 
+  // Função para realizar a atualização da quantidade da marmita, recebe o arraylist marmita, o indice da marmita escolhida e a quantidade
   public static void updateMarmitas(ArrayList<Marmita> marmitas, int indice, int quantidade) {
     Marmita m = marmitas.get(indice);
     m.quantidade += quantidade;
   }
 
+  // Função para limpar o console
   public static void limpar() {
     try {
+      // verifica se é windows para utilizar comandos do windows, se não utiliza outro comando
       if (System.getProperty("os.name").contains("Windows")) {
         new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
       } else {
@@ -773,12 +807,14 @@ public class FluxoGeral {
   }
 }
 
-
+// Cria a classe marmita
 class Marmita {
+    //atributos
     String nome;
     double valor;
     int quantidade;
 
+    // construtor
     public Marmita(String nome, int quantidade, double valor) {
         this.nome = nome;
         this.quantidade = quantidade;
@@ -786,33 +822,37 @@ class Marmita {
     }
 }
 
-// classe Funcionario para login
+// Cria a classe Funcionario 
 class Funcionario {
     String login;
     String senha;
 
+    // construtor
     public Funcionario(String login, String senha){
         this.login = login;
         this.senha = senha;
     }
 }
 
-// classe Gerente para login 
+// Cria a classe Gerente 
 class Gerente {
     String login;
     String senha;
 
+    // construtor
     public Gerente(String login, String senha){
         this.login = login;
         this.senha = senha;
     }
 }
 
+//Cria a classe cliente
 class Cliente {
     //Atributos
     String login; 
     String senha;
 
+    // construtor
     public Cliente(String login, String senha){
         this.login = login;
         this.senha = senha;
