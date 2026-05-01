@@ -236,10 +236,10 @@ public class FluxoGeral {
         // inicia looping de login
         while(true){
           System.out.print("Login: "); 
-          login=entrada.next();
+          login=entrada.nextLine();
 
           System.out.print("Senha: "); 
-          senha=entrada.next();
+          senha=entrada.nextLine();
           limpar(); // limpa o console
 
           // valida se os dados digitados condizem com o funcionário cadastrado
@@ -442,10 +442,10 @@ public class FluxoGeral {
         // inicia lopping de entrar na conta do gerente
         while(true){
           System.out.print("Login: "); 
-          login=entrada.next();
+          login=entrada.nextLine();
 
           System.out.print("Senha: "); 
-          senha=entrada.next();
+          senha=entrada.nextLine();
           limpar(); // limpa o console
 
           if (login.equals(gerente.login) && senha.equals(gerente.senha)){
@@ -471,7 +471,7 @@ public class FluxoGeral {
           System.out.println("_______________________");
 
           System.out.println("\nQual opção deseja executar?");
-          opcao = entrada.next();
+          opcao = entrada.nextLine();
           limpar();
 
           switch (opcao) {
@@ -500,7 +500,7 @@ public class FluxoGeral {
 
                 limpar();
                 System.out.println("_____Ações do Estoque_____");
-                System.out.println("\n  1 - Criar Marmita \\n  2 - Remover Marmita \\n  3 - Alterar quantidade  \\n  4 - Sair");
+                System.out.println("\n  1 - Criar Marmita \n  2 - Remover Marmita \n  3 - Alterar quantidade  \n  4 - Sair");
                 System.out.println("_________________________");
 
                 System.out.println("\nQual opção deseja executar?");
@@ -510,8 +510,7 @@ public class FluxoGeral {
                 switch (opcaoEstoque) { 
                   // realiza a criação da marmita
                   case "1":
-
-                    // mantém o loop até digitar um valor válido
+                      // mantém o loop até digitar um valor válido
                       while (true) {     
                         limpar(); // limpa o console
 
@@ -577,47 +576,47 @@ public class FluxoGeral {
                   case "2":
 
                     limpar(); // limpa o console
-                      visualizarMarmitas(marmitas);
+                    visualizarMarmitas(marmitas);
 
-                      while(true){
-                        try {
-                          System.out.println("\nDigite o cod do item que deseja remover: (ou 0 para sair)");
-                          String i = entrada.nextLine();
-                          indice = Integer.parseInt(i);
-                            // verifica se o indice está de acordo com o que existe no projeto
-                          if (indice > marmitas.size() || indice < 0){
-                            System.out.println("Indice inexistente, por favor digite um indice válido");
-                            continue;
-                            }
-                            break;
-                        } catch(NumberFormatException e) {
-                          System.out.println("Por favor digite um número inteiro");
+                    while(true){
+                      try {
+                        System.out.println("\nDigite o cod do item que deseja remover: (ou 0 para sair)");
+                        String i = entrada.nextLine();
+                        indice = Integer.parseInt(i);
+                          // verifica se o indice está de acordo com o que existe no projeto
+                        if (indice > marmitas.size() || indice < 0){
+                          System.out.println("Indice inexistente, por favor digite um indice válido");
                           continue;
-                        }
+                          }
+                          break;
+                      } catch(NumberFormatException e) {
+                        System.out.println("Por favor digite um número inteiro");
+                        continue;
                       }
+                    }
 
-                      if(indice == 0){
-                        limpar(); // limpa o console
-                        System.out.println("voltando...");
-                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                        limpar(); // limpa o console
-                        break;
-                      }
-
-                      removerMarmitas(marmitas, indice - 1);
-
+                    if(indice == 0){
                       limpar(); // limpa o console
-
-                      System.out.println("Ação bem sucedida!");
+                      System.out.println("voltando...");
                       Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
                       limpar(); // limpa o console
-
-                      System.out.println("O estoque se encontra assim:\n");
-                      visualizarMarmitas(marmitas);
-                      Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                      limpar(); // limpa o console
-
                       break;
+                    }
+
+                    removerMarmitas(marmitas, indice - 1);
+
+                    limpar(); // limpa o console
+
+                    System.out.println("Ação bem sucedida!");
+                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                    limpar(); // limpa o console
+
+                    System.out.println("O estoque se encontra assim:\n");
+                    visualizarMarmitas(marmitas);
+                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                    limpar(); // limpa o console
+
+                    break;
                   // entra no fluxo para alterar a quantidade da marmita
                   case "3":
 
@@ -693,6 +692,7 @@ public class FluxoGeral {
                     System.out.println("Opção inválida");
                     Thread.sleep(espera.toMillis());
                     limpar();
+                    break;
                 }
               }
 
