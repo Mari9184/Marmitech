@@ -1,5 +1,5 @@
 //Projeto Integrador: Gerenciamento de Estoque
-//Versсo Portugol Webstudio
+//Versсo Java 21
 //Grupo: Ariel Isidro Nina Saavedra, Bruno Geanini dos Reis, Gabriel Tolcsvai de Cronis, Heloísa Weiss Willwohl Sanches, Mariane Santana da Silva, Miguel Augusto de Oliveira Santos
 
 import java.io.IOException;
