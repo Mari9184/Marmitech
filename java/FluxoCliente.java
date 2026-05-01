@@ -1,3 +1,7 @@
+//Projeto Integrador: Gerenciamento de Estoque
+//Versсo Portugol Webstudio
+//Grupo: Ariel Isidro Nina Saavedra, Bruno Geanini dos Reis, Gabriel Tolcsvai de Cronis, Heloísa Weiss Willwohl Sanches, Mariane Santana da Silva, Miguel Augusto de Oliveira Santos
+
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -5,19 +9,16 @@ import java.util.Scanner;
 public class FluxoCliente{
     public static void main(String[]args)throws InterruptedException{
         
-        Duration espera = Duration.ofSeconds(3);
+        Duration espera = Duration.ofSeconds(2);
 
-        ArrayList<Cliente> clientes = new ArrayList<Cliente>(); // Instancia um objeto Cliente do tipo ArrayList, para utilizar vetor de forma dinamica
-        ArrayList<Marmita> marmitas = new ArrayList<Marmita>(); // Instancia um objeto Marmita do tipo ArrayList, para utilizar vetor de forma dinamica
-        Scanner entrada = new Scanner(System.in); // Instancia um objeto Scanner
+        ArrayList<Cliente> clientes = new ArrayList<Cliente>(); 
+        ArrayList<Marmita> marmitas = new ArrayList<Marmita>();
+        Scanner entrada = new Scanner(System.in);
 
-        // Definições variaveis globais
-        String opcao, login, senha, nome;
-        double valor;
+        String opcao, login, senha;
         int indice, quantidade;
         boolean autenticacao, sistemaCliente = true, menuCliente=false;
 
-        // adiciona os valores ao array marmitas
         adicionarMarmitas(marmitas, "Frango com Arroz    ", 15, 18.90);
         adicionarMarmitas(marmitas, "Carne Moída com Purê", 12, 19.90);
         adicionarMarmitas(marmitas, "Macarrão à Bolonhesa", 10, 17.50);
@@ -29,14 +30,14 @@ public class FluxoCliente{
         adicionarClientes(clientes, "cliente3", "cliente3");
         adicionarClientes(clientes, "cliente4", "cliente4");
         adicionarClientes(clientes, "cliente5", "cliente5");
-        limpar(); // limpa o console
+        limpar(); 
 
         System.out.println("Iniciando como Cliente...");
-        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+        Thread.sleep(espera.toMillis()); 
         
         while (sistemaCliente) {  
             while(true){
-                limpar(); // limpa o console
+                limpar(); 
                 autenticacao = false;
                 System.out.println("deseja realizar o login?\n1 - Sim\n2 - Não");
                 String realizarLogin = entrada.nextLine();
@@ -45,33 +46,33 @@ public class FluxoCliente{
                     menuCliente = true;
                     break;
                 } 
-                limpar();// limpa o console
+                limpar();
                 System.out.print("Login: "); 
                 login=entrada.nextLine();
     
                 System.out.print("Senha: "); 
                 senha=entrada.nextLine();
-                limpar(); // limpa o console
+                limpar(); 
     
                 for(Cliente cliente : clientes){
                     if (login.equals(cliente.login) && senha.equals(cliente.senha)){
                         autenticacao=true;
                         menuCliente = true;
                         System.out.println("Login realizado com sucesso!!");
-                        Thread.sleep(2000);
+                          Thread.sleep(espera.toMillis());
                         break;
                     } 
                 }
                 if (!autenticacao) {
                     System.out.println("Login ou senha inválidos!");
-                    Thread.sleep(2000);
+                      Thread.sleep(espera.toMillis()); 
                 }
                 break;
             }
             while(menuCliente) {
                 limpar();
                 System.out.println("Acessando Menu...");
-                Thread.sleep(2000);
+                  Thread.sleep(espera.toMillis()); 
 
                 limpar();
 
@@ -85,7 +86,6 @@ public class FluxoCliente{
                         limpar();
                         visualizarMarmitas(marmitas);
 
-                        // Cria o loop para manter até informar um numero inteiro
                         while(true){
                             try {
                                 System.out.println("\nDigite o código da marmita desejada: (ou 0 para sair)");
@@ -95,7 +95,7 @@ public class FluxoCliente{
                                 if(indice == -1){
                                     break;
                                 }
-                                // verifica se o indice está de acordo com o que existe no projeto
+   
                                 if (indice >= marmitas.size() || indice < 0){
                                     System.out.println("Indice inexistente, por favor digite um indice válido");
                                     continue;
@@ -108,10 +108,10 @@ public class FluxoCliente{
                         }
 
                         if(indice == -1){
-                            limpar(); // limpa o console
+                            limpar(); 
                             System.out.println("voltando...");
-                            Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
-                            limpar(); // limpa o console
+                            Thread.sleep(espera.toMillis()); 
+                            limpar(); 
                             break;
                         }
                         limpar();
@@ -139,14 +139,14 @@ public class FluxoCliente{
                         }
 
                         if(quantidade == 0){
-                            limpar(); // limpa o console
+                            limpar(); 
                             System.out.println("voltando...");
-                            limpar(); // limpa o console
+                            limpar(); 
                             break;
                         }
                         comprarMarmitas(marmitas, indice, quantidade);
                         System.out.println("Ação bem sucedida!");
-                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                        Thread.sleep(espera.toMillis()); 
                         break;
 
                     case "2":
@@ -159,7 +159,7 @@ public class FluxoCliente{
                         Thread.sleep(espera.toMillis());
                         limpar();
                 }
-                continue;
+                entrada.close();
             }
         }
 
@@ -210,7 +210,7 @@ class Marmita {
 }
 
 class Cliente {
-    //Atributos
+
     String login; 
     String senha;
 
