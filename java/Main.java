@@ -20,9 +20,9 @@ public class Main {
         Scanner entrada = new Scanner(System.in); // Instancia um objeto Scanner
 
         // Definições variaveis globais
-        String usuario, opcao, opcaoEstoque, login, senha, nome;
+        String usuario, opcao, opcaoEstoque, login, senha, nome, dataNascimentoCliente, telefoneCliente, userNameCliente, nomeCompletoCliente;
         double valor;
-        int indice, quantidade, escolha;
+        int indice, quantidade, escolha, usuarioAutenticado = -1;
         boolean continuar = false, autenticacao, estoque = false, sistemaCliente = false, menuCliente=false, gerirFuncionario=false;
 
         // adiciona os valores ao array marmitas
@@ -34,8 +34,8 @@ public class Main {
         limpar(); // limpa o console
 
         // adiciona os valores ao array clientes
-        adicionarClientes(clientes, "cliente1", "1234");
-        adicionarClientes(clientes, "cliente2", "5678");
+        // adicionarClientes(clientes, "cliente1", "1234");
+        // adicionarClientes(clientes, "cliente2", "5678");
         limpar(); // limpa o console
 
         // adicionando Funcionarios ao array funcionarios
@@ -72,7 +72,7 @@ public class Main {
                             limpar(); // limpa o console
                             autenticacao = false; // define a autenticacao como falso
                             //questiona a opção do usuário para acessar, ou sair do fluxo
-                            System.out.println("Deseja realizar o login?(ou 0 para sair)\n \n 1 - Sim\n 2 - Não \n 3 - Não tenho Login");
+                            System.out.println("Deseja realizar o login?(ou 0 para sair)\n \n 1 - Sim\n 2 - Não \n 3 - Não tem login? Cadastre-se aqui!");
                             System.out.println("\nInforme opção que deseja executar: ");
                             String realizarLogin = entrada.nextLine();
 
@@ -85,20 +85,163 @@ public class Main {
 
                                 System.out.println("_____ Cadastro Novo _____");
 
-                                System.out.println("\nLogin: ");
-                                login = entrada.nextLine();
+                                // loop para validar o email, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                while (true) {
+                                    System.out.println("\nDigite o seu Email:(ou 0 para sair)");
+                                    login = entrada.nextLine();
 
-                                System.out.println("\nsenha");
-                                senha = entrada.nextLine();
+                                    if (login.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
 
-                                adicionarClientes(clientes, login, senha);
-                                limpar();
+                                    if(!verificarEmail(login)){
+                                        limpar(); // limpa o console
+                                        System.out.println("por favor utilize um email válido");
+                                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                        continue;
+                                    }
+                                    break;
+                                }
 
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+
+                                // loop para validar a senha, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                while(true){
+                                    System.out.println("\nDigite a sua Senha:(ou 0 para sair)");
+                                    senha = entrada.nextLine();
+
+                                    if (senha.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
+
+                                    if(!verificarTamanhoSenha(senha)){
+                                        limpar(); // limpa o console
+                                        System.out.println("A senha deve ter pelo menos 8 caracteres, contendo letras e números");
+                                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                        continue;
+                                    }
+                                    break;
+                                }
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+                                    
+                                // loop para validar o nome completo, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                while(true){
+                                    System.out.println("\nDigite o seu nome completo:(ou 0 para sair)");
+                                    nomeCompletoCliente = entrada.nextLine();
+
+                                    if (nomeCompletoCliente.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
+                                    if(!verificarTexto(nomeCompletoCliente)){
+                                        limpar(); // limpa o console
+                                        System.out.println("Por favor utilize um nome válido, Somente letras e espaços");
+                                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                        continue;
+                                    }
+                                    break;
+                                }
+
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+
+                                // loop para validar o nome de usuário, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                while(true){
+                                    System.out.println("\nDigite como você deseja ser chamado:(ou 0 para sair)");
+                                    userNameCliente = entrada.nextLine();
+
+                                    if (userNameCliente.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
+                                    if(!verificarTexto(userNameCliente)){
+                                        limpar(); // limpa o console
+                                        System.out.println("Por favor utilize um nome válido, Somente letras e espaços");
+                                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                        continue;
+                                    }
+                                    break;
+                                }
+
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+
+                                // loop para validar o telefone, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                while(true){
+                                    System.out.println("\nDigite o seu telefone:(ou 0 para sair)");
+                                    telefoneCliente = entrada.nextLine();
+
+                                    if (telefoneCliente.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
+                                    if(!verificarTelefone(telefoneCliente)){
+                                        limpar(); // limpa o console
+                                        System.out.println("Por favor utilize um telefone válido(somente números, com DDD, Ex: 11987654321)");
+                                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                        continue;
+                                    }
+                                    break;
+                                }
+
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+
+                                
+                                while(true){
+                                    System.out.println("\nDigite a sua Data de Nascimento no formato dd/mm/yyyy:(ou 0 para sair)");
+                                    dataNascimentoCliente = entrada.nextLine();
+
+                                    if (dataNascimentoCliente.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
+                                    if(!verificarDataNascimento(dataNascimentoCliente)){
+                                        limpar(); // limpa o console
+                                        System.out.println("Por favor utilize uma data de nascimento válida (formato dd/mm/yyyy, Ex: 31/12/1990)");
+                                        Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                        continue;
+                                    }
+                                    break;
+                                }
+
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+
+                                adicionarClientes(clientes, login, senha, telefoneCliente, nomeCompletoCliente, userNameCliente, dataNascimentoCliente); // função para adicionar o cliente ao sistema
                                 System.out.println("Cliente cadastrado com sucesso!");
                                 Thread.sleep(espera.toMillis());
                                 limpar();
-
                             }
+
                             // caso digite 0, encerra o looping de login
                             else if (realizarLogin.equals("0")) {
                                 limpar();
@@ -127,6 +270,7 @@ public class Main {
                                 //verifica se os dados de entrada condizem com os armazenados
                                 if (login.equals(cliente.login) && senha.equals(cliente.senha)){
                                     autenticacao=true; // armazena a informação que foi autenticado um usuario
+                                    usuarioAutenticado = clientes.indexOf(cliente); // armazena o indice do usuario autenticado
                                     menuCliente = true;  // ativa a condição para iniciar o menu
                                     System.out.println("Login realizado com sucesso!!");
                                     Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
@@ -152,6 +296,10 @@ public class Main {
                             Thread.sleep(espera.toMillis()); //Espera de 2 seg, meramente visual
 
                             limpar(); // limpa o console
+
+                             if(usuarioAutenticado != -1){
+                                System.out.println("Bem Vindo, " + clientes.get(usuarioAutenticado).userName);
+                            }
 
                             //apresenta a lista de marmitas
                             visualizarMarmitas(marmitas);
@@ -237,6 +385,7 @@ public class Main {
                                 //desativa o menu cliente encerrando o fluxo de menu
                                 case "2":
                                     menuCliente = false;
+                                    usuarioAutenticado = -1;
                                     System.out.println("Voltando...");
                                     Thread.sleep(espera.toMillis());
                                     break;
@@ -896,8 +1045,8 @@ public class Main {
         marmitas.add(new Marmita(nome, quantidade, valor));
     }
     // Função para adicionar cliente, onde recebe o arraylist, e os atributos da classe clientes
-    public static void adicionarClientes(ArrayList<Cliente>clientes, String login, String senha){
-        clientes.add(new Cliente(login, senha));
+    public static void adicionarClientes(ArrayList<Cliente>clientes, String login, String senha, String telefone, String nomeCompleto, String userName, String dataNascimento){
+        clientes.add(new Cliente(login, senha, telefone, nomeCompleto, userName, dataNascimento));
     }
 
     public static void adicionarFuncionario(ArrayList<Funcionario>funcionario, String login, String senha){
@@ -910,6 +1059,100 @@ public class Main {
     public static void comprarMarmitas(ArrayList<Marmita> marmitas, int indice, int quantidade) {
         Marmita m = marmitas.get(indice);
         m.quantidade -= quantidade;
+    }
+
+    // função que verifica se a String é vazia ou nula, e se é um número, recebe a String a ser verificada
+    public static boolean verificarString(String texto){
+        boolean verificacao = true;
+        if(texto == null || texto.isBlank()){
+            verificacao = false;
+        }
+        try {
+            Double.parseDouble(texto);
+            verificacao = false;
+        } catch (NumberFormatException e) {
+            // Não é um número, o que é esperado para uma string válida
+        }
+        return verificacao;
+    }
+
+    // função que verifica se a String é vazia ou nula, e se é um número, recebe a String a ser verificada, e se é composta somente por letras
+    public static boolean verificarTexto(String texto){
+        boolean verificacao = true;
+        if(!verificarString(texto)){
+            verificacao = false;
+            return verificacao;
+        }
+        if(!texto.matches("[a-zA-ZÀ-ÿ\\s]+")){
+            verificacao = false;
+        }
+        return verificacao;
+    }
+
+    // função que verifica se a String é um telefone válido, recebe a String a ser verificada, e se é composta somente por números, e se tem 10 ou 11 dígitos
+    public static boolean verificarTelefone(String telefone){
+        boolean verificacao = true;
+        // Remove todos os caracteres que não são dígitos
+        telefone = telefone.replaceAll("[^0-9]", "");
+        if(telefone == null || telefone.isBlank()){
+            verificacao = false;
+            return verificacao;
+        }
+        // Verifica se o telefone tem 10 ou 11 dígitos 
+        if(!telefone.matches("\\d{10,11}")){
+            verificacao = false;
+        }
+        return verificacao;
+    }
+
+    // função que verifica se a senha tem pelo menos 8 caracteres, e se não é vazia ou nula, recebe a String a ser verificada, e se é composta por letras, 
+    // ou letras e números, ou letras, números e símbolos
+    public static boolean verificarTamanhoSenha(String senha){
+        boolean verificacao = true;
+        if(!verificarString(senha)){
+            verificacao = false;
+            return verificacao;
+        };
+        if(senha.length() < 8){
+            verificacao = false;
+        }
+        return verificacao;
+    }
+
+    // função que verifica se o email é válido, recebe a String a ser verificada
+    public static boolean verificarEmail(String login){
+        boolean emailValido = true;
+        if(!verificarString(login)){
+            emailValido = false;
+            return emailValido;
+        }
+        // Expressão para validar o formato do email.
+        // ^ - Início da string
+        // [A-Za-z0-9+_.-]+ - Um ou mais caracteres ou símbolos permitidos antes do @
+        // @ - O símbolo @
+        // [A-Za-z0-9.-]+ - Um ou mais caracteres ou símbolos permitidos para o domínio
+        // \. - O símbolo de ponto (.) antes do final
+        // [A-Za-z]{2,} - o final deve conter pelo menos 2 caracteres, como br, com, etc.
+        // $ - Fim da string
+        String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        if (!login.matches(regexEmail)) {
+            emailValido = false;
+        }
+        return emailValido;
+    }
+
+    public static boolean verificarDataNascimento(String dataNascimento){
+        boolean verificacao = true;
+        if(!verificarString(dataNascimento)){
+            verificacao = false;
+            return verificacao;
+        }
+        // Expressão para validar o formato da data de nascimento (dd/mm/yyyy)
+        String regexData = "^\\d{2}/\\d{2}/\\d{4}$";
+        if (!dataNascimento.matches(regexData)) {
+            verificacao = false;
+        }
+        return verificacao;
     }
 
 
@@ -1030,10 +1273,18 @@ class Cliente {
     //Atributos
     String login;
     String senha;
+    String telefone;
+    String nomeCompleto;
+    String userName;  
+    String dataNascimento;
 
     // construtor
-    public Cliente(String login, String senha){
+    public Cliente(String login, String senha, String telefone, String nomeCompleto, String userName, String dataNascimento){
         this.login = login;
         this.senha = senha;
+        this.telefone = telefone;
+        this.nomeCompleto = nomeCompleto;
+        this.userName = userName;
+        this.dataNascimento = dataNascimento;
     }
 }
