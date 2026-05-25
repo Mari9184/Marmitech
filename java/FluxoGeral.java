@@ -72,7 +72,7 @@ public class Main {
                             limpar(); // limpa o console
                             autenticacao = false; // define a autenticacao como falso
                             //questiona a opção do usuário para acessar, ou sair do fluxo
-                            System.out.println("Deseja realizar o login?(ou 0 para sair)\n \n 1 - Sim\n 2 - Não \n 3 - Não tenho Login");
+                            System.out.println("Deseja realizar o login? \n \n 1 - Sim\n 2 - Não \n 3 - Cadastrar \n 4 - Sair");
                             System.out.println("\nInforme opção que deseja executar: ");
                             String realizarLogin = entrada.nextLine();
 
@@ -100,7 +100,7 @@ public class Main {
 
                             }
                             // caso digite 0, encerra o looping de login
-                            else if (realizarLogin.equals("0")) {
+                            else if (realizarLogin.equals("4")) {
                                 limpar();
                                 System.out.println("Voltando...");
                                 Thread.sleep(espera); //Espera de 2 seg, meramente visual
@@ -178,8 +178,12 @@ public class Main {
                                             }
                                             // verifica se o indice está de acordo com o que existe no projeto
                                             if (indice >= marmitas.size() || indice < 0){
-                                                System.out.println("Indice inexistente, por favor digite um indice válido");
-                                                
+                                                System.out.println("Indice inexistente, por fa2vor digite um indice válido");
+                                                continue;  
+                                            }
+                                            if (marmitas.get(indice).quantidade==0){
+                                                System.out.println("Produto sem estoque");
+                                                continue;
                                             }
                                             break;
                                             // verifica se o número digitado é inteiro
@@ -209,11 +213,12 @@ public class Main {
                                             // validação se foi número positivo, se tem a quantidade em estoque e se é numero inteiro
                                             if(quantidade<0){
                                                 System.out.println("Por favor Digite um número positivo");
+                                                continue;
                                                 
                                             }
                                             else if(marmitas.get(indice).quantidade - quantidade < 0){
                                                 System.out.println("quantidade insuficiente em estoque");
-                                                
+                                                continue;
                                             }
                                             break;
                                         }  catch(NumberFormatException e) {
@@ -258,15 +263,23 @@ public class Main {
                                             }
 
                                         case "4"-> {
-                                            System.out.println("\nPagamento cancelado.");
+                                            System.out.println("Cancelando Pagamento....");
+                                            Thread.sleep(espera);
+                                            System.out.println("Pagamento cancelado!!");
+                                            Thread.sleep(espera);
+                                            limpar();
                                             }
 
                                         default -> {
                                             System.out.println("\nForma de pagamento inválida.");
-                                            }
+                                        }
                                     }
 
-                                    System.out.println("\n_____ PAGAMENTO  _____");
+                                    if (formaPagamento.equals("4")) {
+                                        break;
+                                    }
+
+                                    System.out.println("\n_____ PAGAMENTO _____");
                                     System.out.println("Forma: " + formaPagamento);
                                     System.out.printf("Valor: R$ %.2f\n", total);
                                     Thread.sleep(espera);
@@ -292,18 +305,6 @@ public class Main {
                                     );
 
                                     pedidos.add(pedido);
-
-                                    System.out.println("\n_____ NOTA FISCAL _____");
-                                    System.out.println("Pedido: " + pedido.codigo);
-                                    System.out.println("Produto: " + pedido.nomeMarmita);
-                                    System.out.println("Quantidade: " + pedido.quantidade);
-                                    System.out.printf("Valor Unitário: R$ %.2f\n", pedido.valorUnitario);
-                                    System.out.printf("Valor Total: R$ %.2f\n", pedido.valorTotal);
-                                    System.out.println("Pagamento: " + pedido.formaPagamento);
-                                    System.out.println("Status: Pago");
-                                    System.out.println("_________________________");
-
-                                    Thread.sleep(espera);
                                     
                                     }
                                 //desativa o menu cliente encerrando o fluxo de menu
@@ -571,7 +572,6 @@ public class Main {
                         }
                     }
                 }
-
                 // abre o fluxo de gerente
                 case "3"-> {
                     System.out.println("Iniciando como Gerente...");
@@ -850,9 +850,7 @@ public class Main {
                                         }
                                     }
                                 }
-                            }
-
-                                
+                            }                            
                             // abre pedidos
                             case "3"-> {
 
@@ -884,7 +882,6 @@ public class Main {
                                 limpar();
 
                                 }
-
                             // abre gerenciamento de funcionarios
                             case "4"-> {
 
@@ -1149,8 +1146,6 @@ public class Main {
             System.out.println("outo ao limpar o terminal: " + e.getMessage());
         }
     }
-
-    
 }
 
 // Cria a classe marmita
@@ -1210,16 +1205,14 @@ class Pedido {
     int codigo;
     String nomeMarmita;
     int quantidade;
-    double valorUnitario;
     double valorTotal;
     String formaPagamento;
 
     public Pedido(int codigo, String nomeMarmita, int quantidade, double valorUnitario,
-                  double valorTotal, String formaPagamento){
+        double valorTotal, String formaPagamento){
         this.codigo = codigo;
         this.nomeMarmita = nomeMarmita;
         this.quantidade = quantidade;
-        this.valorUnitario = valorUnitario;
         this.valorTotal = valorTotal;
         this.formaPagamento = formaPagamento;
     }
