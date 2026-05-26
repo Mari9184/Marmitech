@@ -10,6 +10,7 @@ programa
 	funcao inicio()
 	{
     cadeia usuario, senha
+    logico autenticado = falso
     logico login=falso
     logico sistema=verdadeiro
     logico logininicio=falso
@@ -24,6 +25,21 @@ programa
     cadeia nomemarmita[100] = {"Frango com Arroz    ", "Carne Moída com Purê", "Macarrão à Bolonhesa", "Strogonoff de Frango", "Arroz Carreteiro    ", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"}
     inteiro quantidademarmita[100] = {15, 12, 10, 14, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     real valormarmita[100] = {18.90, 19.90, 17.50, 21.00, 19.50, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+    cadeia logincliente[100]
+    cadeia senhacliente[100]
+    inteiro totalclientes = 0
+    inteiro codpedido[100] 
+    cadeia nomepedido[100] 
+    inteiro quantidadpedido[100]
+    real valorpedido[100]
+    cadeia pagamentopedido[100] 
+    inteiro totalpedidos = 0 
+    cadeia loginfuncionario[100] = {"2","0","0","0","0","0","0","0","0","0"}
+    cadeia senhafuncionario[100] = {"2","0","0","0","0","0","0","0","0","0"}
+    inteiro totalfuncionarios = 1 
+    cadeia notificacao[100]
+    inteiro totalnotificacao = 0
+    inteiro quantidadenotificacao[100]
 
     //Verifica a forma de entrada e sua validade e retorna  sempre que qualquer erro ocorrer ou não for validado o login
     enquanto (nao logininicio){
@@ -55,10 +71,11 @@ programa
             escreva("_____Cliente_____\n")
 
             escreva("\nDeseja se identificar?\n")
-              
+            
             escreva("\n1 - Não\n")
             escreva("2 - Sim\n")
-
+            escreva("3 - Não tenho login\n")
+            
             escreva("\nOpção: ")
             leia(opcao)
             limpa()
@@ -75,29 +92,57 @@ programa
                   
               caso 2:
                 //Faz a autenticação do login identificado
-                sistema = verdadeiro
-                enquanto (nao login) {
-                  escreva("Login: ") leia(login)
-                  escreva("Senha: ") leia(senha)
-                  limpa()
-                        
+
+                autenticado = falso
+                enquanto(nao autenticado){
+
+                  escreva("Login: ")
+                  leia(usuario)
+                  escreva("Senha: ")
+                  leia(senha)
+
+                  autenticado = falso
+
+                  para(inteiro i = 0; i < totalclientes; i++){
+                    se(usuario == logincliente[i] e senha == senhacliente[i]){
+                      autenticado = verdadeiro
+                    }
+                  }
+
+                  se(autenticado){
+                    escreva("Login realizado com sucesso!\n")
+                    login = verdadeiro
+                  }
+                  senao{
+                    escreva("Login inválido!\n")
+                  }
+
                   se (login == "1" e senha == "1"){
                     login = verdadeiro
                     escreva("Login realizado com sucesso!\n")
                     u.aguarde(2000)
                     limpa()
                   }
-              
-                  senao {
-                    escreva("Login Inválido!\n")
-                    escreva("Digite novamente!\n")
-                    u.aguarde(2000)
-                    limpa()
-                  }
                 }
+              limpa()
+              pare
+              caso 3:
+
+                escreva("\n_____CADASTRO CLIENTE_____\n")
+
+                escreva("\nNovo login: ")
+                leia(logincliente[totalclientes])
+                escreva("Nova senha: ")
+                leia(senhacliente[totalclientes])
+
+                totalclientes = totalclientes + 1
+
+                escreva("\nCadastro realizado com sucesso!\n")
+
+                u.aguarde(2000)
+                limpa()
 
               pare
-
               caso contrario:
 
                 limpa()
@@ -142,7 +187,6 @@ programa
                     para (inteiro posicao = 0; posicao < 5; posicao++){
 
                     se (codmarmita[posicao] == item){
-
                       valido=verdadeiro
                       escreva("\nItem - ", nomemarmita[posicao], "\n")
 
@@ -154,24 +198,105 @@ programa
                             
                         se (quantidade <= quantidademarmita[posicao] e quantidade > 0){
 
-                        quantidademarmita[posicao] = quantidademarmita[posicao] - quantidade
-                        escreva("\nItem comprado com sucesso!\n")compra=verdadeiro
+
+                        real total 
+                        cadeia formapagamento
+
+                        total = quantidade * valormarmita[posicao]
+
+                        limpa()
+                        escreva("_____ PAGAMENTO _____\n")
+
+                        escreva("\n1 - Pix\n")
+                        escreva("2 - Cartão\n")
+                        escreva("3 - Dinheiro\n")
+                        escreva("4 - Cancelar Compra\n")
+
+                        escreva("\nOpção: ")
+                        leia(opcao)
+
+                        escolha(opcao){
+
+                          caso 1:
+                            formapagamento = "Pix"
+                          pare
+
+                          caso 2:
+                            formapagamento = "Cartão"
+                          pare
+
+                          caso 3:
+                            formapagamento = "Dinheiro"
+                          pare
+
+                          caso 4:
+
+                            escreva("\nCompra cancelada!\n")
+                            u.aguarde(2000)
+                            limpa()
+                            compra = verdadeiro
+
+                          pare
+
+                          caso contrario:
+
+                            escreva("\nPagamento inválido!\n")
+                            u.aguarde(2000)
+                            limpa()
+
+                          pare
+                        }
+
+                        se(opcao >= 1 e opcao <= 3){
+
+                          quantidademarmita[posicao] = quantidademarmita[posicao] - quantidade
+                          se(quantidademarmita[posicao] < 5){///////////////
+
+                            notificacao[totalnotificacao] = "Estoque baixo: " + nomemarmita[posicao]
+                            quantidadenotificacao[totalnotificacao] = quantidademarmita[posicao]
+
+                            totalnotificacao = totalnotificacao + 1
+
+                          }
+                          
+                          codpedido[totalpedidos] = totalpedidos + 1
+                          nomepedido[totalpedidos] = nomemarmita[posicao]
+                          quantidadpedido[totalpedidos] = quantidade
+                          valorpedido[totalpedidos] = total
+                          pagamentopedido[totalpedidos] = formapagamento
+
+                          totalpedidos = totalpedidos + 1
+
+                          limpa()
+
+                          escreva("_____ NOTA FISCAL _____\n")
+
+                          escreva("\nPedido: ", codpedido[totalpedidos - 1], "\n")
+                          escreva("Produto: ", nomepedido[totalpedidos - 1], "\n")
+                          escreva("Quantidade: ", quantidadpedido[totalpedidos - 1], "\n")
+                          escreva("Valor Total: R$", valorpedido[totalpedidos - 1], "\n")
+                          escreva("Pagamento: ", pagamentopedido[totalpedidos - 1], "\n")
+
+                          escreva("\nCompra realizada com sucesso!\n")
+
+                          u.aguarde(4000)
+                          limpa()
+
+                          compra = verdadeiro
+                        } 
                         u.aguarde(2000)
                         limpa()
 
                         pare
                   
                         }senao se (quantidade == 0){
-                    
                           escreva("\nRetornando...\n")
                           compra=verdadeiro
                   
                         }
                     
                         senao{
-                          
                           escreva("\nQuantidade em estoque insuficiente\n")
-                        
                         }
                     
                       } enquanto(nao compra)
@@ -194,7 +319,6 @@ programa
 
                 caso 2:
 
-
                   limpa()
                   escreva("Saindo...\n")
                   sistema = falso
@@ -215,43 +339,45 @@ programa
               }
             }
         pare
-          
         caso 2:
-          
-
+        
           escreva("Entrando como funcionário...\n")
           u.aguarde(2000)
           limpa()
   
           escreva("______Funcionário______\n")
 
-          //Faz a autenticação do login do Funcionário
+          //Faz a autenticação do login do Funcionário        
           login = falso
           enquanto(nao login){
-            
             escreva("\nUsuario: ") leia(usuario)
             escreva("Senha: ") leia(senha)
 
-            se (usuario == "2" e senha == "2"){
-              login = verdadeiro
+            login = falso
+            para(inteiro i = 0; i < totalfuncionarios; i++){
+              se(usuario == loginfuncionario[i] e senha == senhafuncionario[i]){
+                login = verdadeiro
+
+              }
+            }
+            se(login){
               limpa()
             }
-        
-            senao{
 
+            senao{
               limpa()
               escreva("Login Inválido!\n")
               u.aguarde(2000)
-          
+
               limpa()
               escreva("Digite novamente:\n")
             }
           }
-  
           escreva("Login realizado com sucesso!\n")
           u.aguarde(2000)
           limpa()        
-          
+
+
           //Valida a ação que o Funcionário deseja fazer no sistema
           enquanto (sistema){
     
@@ -274,15 +400,26 @@ programa
                 u.aguarde(2000)
                 limpa()
 
-                escreva("_____Notificações_____\n")
-                escreva("\nSem notificações encontradas\n")
+                
+                se(totalnotificacao == 0){
+
+                  escreva("\nSem notificações encontradas\n")
+                }
+
+                senao{
+
+                  escreva("_____NOTIFICACOES_____\n\n")
+
+                  para(inteiro i = 0; i < totalnotificacao; i++){
+                    escreva(notificacao[i], " | Quantidade: ", quantidadenotificacao[i], "\n")
+                  }
+                }
 
                 escreva("\nEm 3 segundos será redirecinado...")
                 u.aguarde(3500)
                 limpa()
                           
               pare
-
               caso 2:
                           
                 escreva("Abrindo Estoque...\n")
@@ -315,10 +452,9 @@ programa
                         leia(item) valido=falso
 
                         para (inteiro posicao = 0; posicao < 5; posicao++){
-
                         se(codmarmita[posicao] == item){
                         valido=verdadeiro
-                                        
+
                         escreva("\nItem a adicionar - ", nomemarmita[posicao], "\n")
                                         
                         escreva("\nQuantidade a adicionar: ")
@@ -343,14 +479,11 @@ programa
 
                         }se (nao valido){
 
-                          escreva("Código de item não encontrado!\n")
-                      
+                          escreva("Código de item não encontrado!\n")                      
                         }
-
                       }enquanto(nao valido)
 
                     pare
-
                     caso 2:
                       //Faz a autenticação do item em estoque e verifica a validade para retirar quantidade
                       faca{
@@ -369,8 +502,7 @@ programa
                             enquanto (nao quantidadevalida){
 
                               escreva("\nQuantidade para retirar: ")
-                              leia(quantidade)
-                                          
+                              leia(quantidade)                  
                               se(quantidade <= quantidademarmita[posicao] e quantidade > 0){
 
                                 quantidadevalida=verdadeiro
@@ -400,41 +532,64 @@ programa
                             }
                           }
                           
-                        }se (nao valido){
-                            
+                        }se (nao valido){   
                             escreva("Código de item não encontrado!\n")
 
                         }
-                    
                       }enquanto(nao valido)
 
                   }
               pare
 
-              caso 3:
-                        
+              caso 3:                                  
                 escreva("Abrindo Pedidos...\n")
                 u.aguarde(2000)
                 limpa()
 
                 escreva("_____Pedidos_____\n")
-                escreva("\nSem pedidos realizados\n")
 
-                escreva("\nEm 3 segundos será redirecinado...")
-                u.aguarde(3500)
-                limpa()
+                se(totalpedidos == 0){
 
-              pare
+                  escreva("\nSem pedidos realizados\n")
 
-              caso 4:
-                //Encerra o Sistema
-                logininicio=verdadeiro      
-                escreva("Encerrando sistema...\n")
-                sistema = falso
+                }
+
+                senao{
+
+                  para(inteiro i = 0; i < totalpedidos; i++){
+
+                    escreva("\nPedido: ", codpedido[i], "\n")
+                    escreva("Produto: ", nomepedido[i], "\n")
+                    escreva("Quantidade: ", quantidadpedido[i], "\n")
+                    escreva("Valor Total: R$", valorpedido[i], "\n")
+                    escreva("Pagamento: ", pagamentopedido[i], "\n")
+
+                    escreva("-------------------------\n")
+                  }
+                }
+
+                faca{
+
+                  escreva("\nDigite 0 para voltar: ")
+                  leia(opcao)
+
+                  se(opcao != 0){
+                    escreva("\nDigite apenas 0 para voltar!\n")
+                  }
+
+                } enquanto(opcao != 0)
+
+                escreva("\nVoltando...\n")
                 u.aguarde(2000)
                 limpa()
 
-                pare
+              pare
+              caso 4:
+                escreva("Voltando para tela de inicio...\n")
+                sistema = falso
+                u.aguarde(2000)
+                limpa()
+              pare
 
               caso contrario:
                         
@@ -500,22 +655,29 @@ programa
             limpa()
 
             escolha (opcao){
-
-              caso 1:
+                caso 1:
 
                 escreva("Abrindo Notificações...\n")
                 u.aguarde(2000)
                 limpa()
 
-                escreva("_____Notificações_____\n")
-                escreva("\nSem notificações encontradas\n")
+                escreva("_____NOTIFICACOES_____\n\n")
 
-                escreva("\nEm 3 segundos será redirecinado...")
+                se(totalnotificacao == 0){
+                  escreva("Sem notificações encontradas\n")
+                }
+
+                senao{
+
+                  para(inteiro i = 0; i < totalnotificacao; i++){
+                    escreva(notificacao[i], " | Quantidade: ", quantidadenotificacao[i], "\n")
+                  }
+                }
+                escreva("\nEm 3 segundos será redirecionado...")
                 u.aguarde(3500)
                 limpa()
-                          
-              pare
 
+              pare
               caso 2:
                           
                 escreva("Abrindo Estoque...\n")
@@ -551,7 +713,6 @@ programa
                       valido=falso
 
                       para (inteiro posicao = 0; posicao < 5; posicao++){
-
                       se(codmarmita[posicao] == item){
                         valido=verdadeiro
                                         
@@ -565,11 +726,9 @@ programa
                         escreva("\nItem adicionado com sucesso!\n")
                         u.aguarde(2000)
                         limpa()
-
                         escreva("\nNovo estoque: ", nomemarmita[posicao], "\t\t", quantidademarmita[posicao], "\n")
                         u.aguarde(3500)
                         limpa()
-
                         escreva("\nEm 3 segundos será redirecinado...")
                         u.aguarde(3500)
                         limpa()
@@ -597,7 +756,6 @@ programa
                       para (inteiro posicao = 0; posicao < 5; posicao++){
 
                       se(codmarmita[posicao] == item){
-
                         valido=verdadeiro
                         escreva("\nItem encontrado: ", nomemarmita[posicao], "\n")
                         quantidadevalida=falso
@@ -656,10 +814,8 @@ programa
                         codmarmita[i] = maximolimite
                         escreva("Digite o nome da marmita: ")
                         leia(nomemarmita[i])
-
                         escreva("Digite a quantidade: ")
                         leia(quantidademarmita[i])
-
                         escreva("Digite o valor: ")
                         leia(valormarmita[i])
 
@@ -730,73 +886,170 @@ programa
               pare
 
               caso 3:
-                        
+                                      
                 escreva("Abrindo Pedidos...\n")
                 u.aguarde(2000)
                 limpa()
 
                 escreva("_____Pedidos_____\n")
-                escreva("\nSem pedidos realizados\n")
 
-                escreva("\nEm 3 segundos será redirecinado...")
-                u.aguarde(3500)
+                se(totalpedidos == 0){
+
+                  escreva("\nSem pedidos realizados\n")
+
+                }
+
+                senao{
+
+                  para(inteiro i = 0; i < totalpedidos; i++){
+
+                    escreva("\nPedido: ", codpedido[i], "\n")
+                    escreva("Produto: ", nomepedido[i], "\n")
+                    escreva("Quantidade: ", quantidadpedido[i], "\n")
+                    escreva("Valor Total: R$", valorpedido[i], "\n")
+                    escreva("Pagamento: ", pagamentopedido[i], "\n")
+
+                    escreva("-------------------------\n")
+                  }
+                }
+
+                faca{
+
+                  escreva("\nDigite 0 para voltar: ")
+                  leia(opcao)
+                  se(opcao != 0){
+
+                    escreva("\nDigite apenas 0 para voltar!\n")
+
+                  }
+
+                } enquanto(opcao != 0)
+                limpa()
+                escreva("\nVoltando...\n")
+                u.aguarde(2000)
                 limpa()
 
               pare
-
+                                                 
               caso 4:
               
                 escreva("______Gerir Equipe______\n")
 
-                escreva("\n1 - Adicionar usuário\n")
-                escreva("2 - Remover usuário\n")
-                escreva("3 - Alterar acesso\n")
+                escreva("\n1 - Visualizar Funcionários\n")
+                escreva("2 - Adicionar usuário\n")
+                escreva("3 - Remover usuário\n")
+                escreva("4 - Voltar\n")
 
                 escreva("\nOpção: ")
                 leia(opcao)
                 limpa()
 
                 escolha (opcao) {
-
                   caso 1:
-                    
-                    escreva("No momento ainda não funciona ...")
-                    u.aguarde(2000)
+
+                  escreva("_____FUNCIONARIOS_____\n\n")
+
+                  escreva("COD|\tLOGIN|\t\tSENHA|\n")
+                  escreva("----------------------------------\n")
+
+                  para(inteiro i = 0; i < totalfuncionarios; i++){
+                    escreva(i + 1, "\t", loginfuncionario[i], "\t\t", senhafuncionario[i], "\n")
+
+                  }
+
+                  faca{
+
+                    escreva("\nDigite 0 para voltar: ")
+                    leia(opcao)
+                    se(opcao != 0){
+                      escreva("\nDigite apenas 0!\n")
+                    }
+
+                  } enquanto(opcao != 0)
+
+                  limpa()
+
+                pare
+                    faca{
+                      escreva("\nDigite 0 para voltar: ")
+                      leia(opcao)
+                      se(opcao != 0){
+                        escreva("\nDigite apenas 0!\n")
+                      }
+
+                    } enquanto(opcao != 0)
                     limpa()
 
-                    escreva("Em 3 segundos será redirecinado...")
-                    u.aguarde(3500)
-                    limpa()
-                    
-                  pare
-                          
+                  pare                    
                   caso 2:
-                    
-                    escreva("No momento ainda não funciona ...")
+
+                    escreva("_____ADICIONAR FUNCIONARIO_____\n\n")
+                    escreva("Codigo do novo funcionario: ", totalfuncionarios + 1, "\n\n")
+                    cadeia novologin
+                    cadeia novasenha
+
+                    escreva("Login do funcionario: ")
+                    leia(novologin)
+                    escreva("Senha do funcionario: ")
+                    leia(novasenha)
+
+                    loginfuncionario[totalfuncionarios] = novologin
+                    senhafuncionario[totalfuncionarios] = novasenha
+
+                    totalfuncionarios = totalfuncionarios + 1
+
+                    escreva("\nFuncionario cadastrado com sucesso!\n")
+
                     u.aguarde(2000)
                     limpa()
 
-                    escreva("Em 3 segundos será redirecinado...")
-                    u.aguarde(3500)
-                    limpa()
-                    
                   pare
-                        
+                     
                   caso 3:
-                    
-                    escreva("No momento ainda não funciona ...")
+                    escreva("_____REMOVER FUNCIONARIO_____\n\n")
+                    escreva("COD\tLOGIN\n")
+                    escreva("-------------------------\n")
+
+                    para(inteiro i = 0; i < totalfuncionarios; i++){
+                      escreva(i + 1, "\t", loginfuncionario[i], "\n")
+                    }
+
+                    escreva("\nDigite o codigo do funcionario: ")
+                    leia(item)
+
+                    se(item >= 0 e item < totalfuncionarios){
+                      para(inteiro i = item; i < totalfuncionarios - 1; i++){
+
+                        loginfuncionario[i] = loginfuncionario[i + 1]
+                        senhafuncionario[i] = senhafuncionario[i + 1]
+
+                      }
+
+                      totalfuncionarios = totalfuncionarios - 1
+
+                      escreva("\nFuncionario removido com sucesso!\n")
+                    }
+
+                    senao{
+
+                      escreva("\nCodigo invalido!\n")
+
+                    }
+
                     u.aguarde(2000)
                     limpa()
 
-                    escreva("Em 3 segundos será redirecinado...")
-                    u.aguarde(3500)
-                    limpa()
-                    
                   pare
-                          
+                  caso 4:
+
+                    escreva("Voltando...\n")
+                    u.aguarde(2000)
+                    limpa()
+
+                  pare
                   caso contrario:
 
-                    escreva("Opção inválida no menu de equipe.\n")
+                    escreva("Opção inválida no menu de eq2uipe.\n")
                     u.aguarde(2000)
                     limpa()
 
@@ -809,14 +1062,12 @@ programa
               pare
 
               caso 5:
-                //Retorna para o Inicío
                 escreva("Voltando para tela de inicio...\n")
                 sistema = falso
                 u.aguarde(2000)
                 limpa()
 
               pare
-
             }
           }
         pare
@@ -840,11 +1091,12 @@ programa
           limpa()
 
         pare
-
       }
     }
-
     escreva("\n___Sistema Encerrado___\n")
 
   }
 }    
+
+
+
