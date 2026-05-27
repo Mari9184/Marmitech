@@ -94,6 +94,15 @@ public class FluxoCliente {
                                         limpar();
                                         continue;
                                     }
+
+                                    if(cadastroExistente(clientes, login)){
+                                        limpar();
+                                        System.out.println("Este email já está cadastrado!");
+                                        Thread.sleep(espera);
+                                        continue;
+                                    }
+
+
                                     break;
                                 }
 
@@ -466,26 +475,41 @@ public class FluxoCliente {
         return verificacao;
     }
 
-    public static boolean verificarEmail(String login){
-        boolean emailValido = true;
-        if(!verificarString(login)){
-            emailValido = false;
+    static boolean cadastroExistente(
+    ArrayList<Cliente> clientes,
+    String login
+    ){
+
+        // verifica clientes
+        for(Cliente c : clientes){
+            if(c.login.equalsIgnoreCase(login)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+        public static boolean verificarEmail(String login){
+            boolean emailValido = true;
+            if(!verificarString(login)){
+                emailValido = false;
+                return emailValido;
+            }
+            // Expressão para validar o formato do email.
+            // ^ - Início da string
+            // [A-Za-z0-9+_.-]+ - Um ou mais caracteres ou símbolos permitidos antes do @
+            // @ - O símbolo @
+            // [A-Za-z0-9.-]+ - Um ou mais caracteres ou símbolos permitidos para o domínio
+            // \. - O símbolo de ponto (.) antes do final
+            // [A-Za-z]{2,} - o final deve conter pelo menos 2 caracteres, como br, com, etc.
+            // $ - Fim da string
+            String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+            if (!login.matches(regexEmail)) {
+                emailValido = false;
+            }
             return emailValido;
         }
-        // Expressão para validar o formato do email.
-        // ^ - Início da string
-        // [A-Za-z0-9+_.-]+ - Um ou mais caracteres ou símbolos permitidos antes do @
-        // @ - O símbolo @
-        // [A-Za-z0-9.-]+ - Um ou mais caracteres ou símbolos permitidos para o domínio
-        // \. - O símbolo de ponto (.) antes do final
-        // [A-Za-z]{2,} - o final deve conter pelo menos 2 caracteres, como br, com, etc.
-        // $ - Fim da string
-        String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-        if (!login.matches(regexEmail)) {
-            emailValido = false;
-        }
-        return emailValido;
-    }
 
     // Função para adicionar marmitas, onde recebe o arraylist, e os atributos da classe marmita
      static void adicionarMarmitas(ArrayList<Marmita> marmitas, String nome, int quantidade, double valor) {
