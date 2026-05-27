@@ -279,7 +279,7 @@ programa
 
         pare
         caso 4:
-          escreva("Voltando para tela de inicio...\n")
+          escreva("Encerrando...\n")
           sistema = falso
           u.aguarde(2000)
           limpa()
@@ -297,5 +297,3 @@ programa
     } 
   }
 }   
-
-
