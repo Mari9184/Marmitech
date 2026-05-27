@@ -7,12 +7,12 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class FluxoGeral {
     public static void main(String[] args) throws InterruptedException {
 
         Duration espera = Duration.ofSeconds(2);
 
-        Gerente gerente = new Gerente("gerente3", "gerente3"); //Instancia o objeto gerente, atribuindo valores aos parametros.
+        Gerente gerente = new Gerente("gerente@gmail.com", "gerente3", "Maria Dolores"); //Instancia o objeto gerente, atribuindo valores aos parametros.
         ArrayList<Cliente> clientes = new ArrayList<>(); // Instancia um objeto Cliente do tipo ArrayList, para utilizar vetor de forma dinamica
         ArrayList<Marmita> marmitas = new ArrayList<>(); // Instancia um objeto do tipo ArrayList, para utilizar vetor de forma dinamica
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
@@ -20,7 +20,7 @@ public class Main {
         Scanner entrada = new Scanner(System.in); // Instancia um objeto Scanner
 
         // Definições variaveis globais
-        String usuario, opcao, opcaoEstoque, login, senha, nome;
+        String usuario, opcao, opcaoEstoque, login, senha, nomeCompleto, nome;
         double valor;
         int indice, quantidade, escolha;
         boolean continuar = false, autenticacao, estoque, sistemaCliente , menuCliente=false, gerirFuncionario;
@@ -34,14 +34,14 @@ public class Main {
         limpar(); // limpa o console
 
         // adiciona os valores ao array clientes
-        adicionarClientes(clientes, "cliente1", "1234");
-        adicionarClientes(clientes, "cliente2", "5678");
+        adicionarClientes(clientes, "cliente1@gmail.com", "1234567c", "Fulano");
+        adicionarClientes(clientes, "cliente2@gmail.com", "8765432c","Beutrano");
         limpar(); // limpa o console
 
         // adicionando Funcionarios ao array funcionarios
 
-        adicionarFuncionario(funcionarios, "Funcionario1", "1234");
-        adicionarFuncionario(funcionarios, "Funcionario2", "5678");
+        adicionarFuncionario(funcionarios, "Funcionario1@gmail.com", "1234567f","Julia Child  ");
+        adicionarFuncionario(funcionarios, "Funcionario2@gmail.com", "7654321f", "Érick Jacquin");
         limpar();
 
         System.out.println("Iniciando Sistema ...");
@@ -75,6 +75,7 @@ public class Main {
                             System.out.println("Deseja realizar o login? \n \n 1 - Sim\n 2 - Não \n 3 - Cadastrar \n 4 - Sair");
                             System.out.println("\nInforme opção que deseja executar: ");
                             String realizarLogin = entrada.nextLine();
+                            limpar();
 
                             // verifica se o  usuario não deseja fazer login
                             if(realizarLogin.equals("2")){
@@ -85,13 +86,85 @@ public class Main {
 
                                 System.out.println("_____ Cadastro Novo _____");
 
-                                System.out.println("\nLogin: ");
-                                login = entrada.nextLine();
+                                while (true) {
+                                    System.out.println("\nDigite o seu Email:(ou 0 para sair)");
+                                    login = entrada.nextLine();
 
-                                System.out.println("\nsenha");
-                                senha = entrada.nextLine();
+                                    if (login.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
 
-                                adicionarClientes(clientes, login, senha);
+                                    if(!verificarEmail(login)){
+                                        limpar(); // limpa o console
+                                        System.out.println("por favor utilize um email válido!");
+                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                        limpar();
+                                        continue;
+                                    }
+                                    break;
+                                }
+
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+
+                                // loop para validar a senha, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                while(true){
+                                    System.out.println("\nDigite a sua Senha:(ou 0 para sair)");
+                                    senha = entrada.nextLine();
+
+                                    if (senha.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
+
+                                    if(!verificarTamanhoSenha(senha)){
+                                        limpar(); // limpa o console
+                                        System.out.println("A senha deve ter pelo menos 8 caracteres, contendo letras e números");
+                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                        continue;
+                                    }
+                                    break;
+                                }
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+                                    
+                                // loop para validar o nome completo, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                while(true){
+                                    System.out.println("\nDigite o seu nome completo:(ou 0 para sair)");
+                                    nomeCompleto = entrada.nextLine();
+
+                                    if (nomeCompleto.equals("0")) {
+                                        limpar(); // limpa o console
+                                        break;
+                                    }
+                                    if(!verificarTexto(nomeCompleto)){
+                                        limpar(); // limpa o console
+                                        System.out.println("Por favor utilize um nome válido, Somente letras e espaços");
+                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                        continue;
+                                    }
+                                    break;
+                                }
+
+                                if (login.equals("0")) {
+                                    System.out.println("Voltando...");
+                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                    limpar(); // limpa o console
+                                    continue;
+                                }
+
+
+
+                                adicionarClientes(clientes, login, senha, nomeCompleto);
                                 limpar();
 
                                 System.out.println("Cliente cadastrado com sucesso!");
@@ -128,6 +201,9 @@ public class Main {
                                     autenticacao=true; // armazena a informação que foi autenticado um usuario
                                     menuCliente = true;  // ativa a condição para iniciar o menu
                                     System.out.println("Login realizado com sucesso!!");
+                                    limpar();
+                                    Thread.sleep(espera);
+                                    System.out.println("Bem vindo, " + cliente.nomeCompleto + "!");
                                     Thread.sleep(espera); //Espera de 2 seg, meramente visual
                                     break;
                                 }
@@ -204,27 +280,45 @@ public class Main {
                                     limpar(); // limpa o console
                                     // abre o looping para comprar a marmita
                                     while(true){
+
                                         System.out.println("Marmita - " + marmitas.get(indice).nome);
+
                                         try{
+
                                             System.out.println("Digite a quantidade que deseja comprar: (ou 0 para sair)");
+
                                             String quantidadeString = entrada.nextLine();
                                             quantidade = Integer.parseInt(quantidadeString);
 
-                                            // validação se foi número positivo, se tem a quantidade em estoque e se é numero inteiro
-                                            if(quantidade<0){
-                                                System.out.println("Por favor Digite um número positivo");
-                                                continue;
-                                                
+                                            if(quantidade == 0){
+                                                break;
                                             }
+
+                                            if(quantidade < 0){
+                                                System.out.println("Digite uma quantidade maior que 0");
+                                                continue;
+                                            }
+
                                             else if(marmitas.get(indice).quantidade - quantidade < 0){
+                                                limpar();
                                                 System.out.println("quantidade insuficiente em estoque");
+                                                Thread.sleep(espera);
+                                                limpar();
                                                 continue;
                                             }
+
                                             break;
-                                        }  catch(NumberFormatException e) {
-                                                System.out.println("Por favor digite um número inteiro");
-                                                
+
+                                        } catch(NumberFormatException e) {
+                                            System.out.println("Por favor digite um número inteiro");
                                         }
+                                    }
+
+                                    if(quantidade == 0){
+                                        limpar();
+                                        System.out.println("Voltando...");
+                                        Thread.sleep(espera);
+                                        break;
                                     }
 
                                     double total = marmitas.get(indice).valor * quantidade;
@@ -239,6 +333,7 @@ public class Main {
                                     String formaPagamento = entrada.nextLine();
 
                                     limpar();
+                                    boolean pagamentoCancelado = false;
                                     switch (formaPagamento) {
 
                                         case "1"-> {
@@ -268,14 +363,16 @@ public class Main {
                                             System.out.println("Pagamento cancelado!!");
                                             Thread.sleep(espera);
                                             limpar();
-                                            }
+
+                                            pagamentoCancelado = true;
+                                        }
 
                                         default -> {
                                             System.out.println("\nForma de pagamento inválida.");
                                         }
                                     }
 
-                                    if (formaPagamento.equals("4")) {
+                                    if (pagamentoCancelado) {
                                         break;
                                     }
 
@@ -305,13 +402,28 @@ public class Main {
                                     );
 
                                     pedidos.add(pedido);
+
+                                    System.out.println("\n_____ NOTA FISCAL _____");
+                                    System.out.println("Pedido: " + pedido.codigo);
+                                    System.out.println("Produto: " + pedido.nomeMarmita);
+                                    System.out.println("Quantidade: " + pedido.quantidade);
+                                    System.out.printf("Valor Unitário: R$ %.2f\n", pedido.valorUnitario);
+                                    System.out.printf("Valor Total: R$ %.2f\n", pedido.valorTotal);
+                                    System.out.println("Pagamento: " + pedido.formaPagamento);
+                                    System.out.println("_________________________");
+
+                                    Thread.sleep(espera);
+                                    Thread.sleep(espera);
+                                    
                                     
                                     }
                                 //desativa o menu cliente encerrando o fluxo de menu
                                 case "2"-> {
                                     menuCliente = false;
+                                    limpar();
                                     System.out.println("Voltando...");
                                     Thread.sleep(espera);
+                                    limpar();
                                     }
                                 // pede uma opção válida em caso de digitar algo fora das opções
                                 default-> {
@@ -345,6 +457,9 @@ public class Main {
                             if (login.equals(funcionario.login) && senha.equals(funcionario.senha)) {
                                 funcionarioAutenticado = true;
                                 continuar = true;
+                                
+                                System.out.println("Bem vindo, " + funcionario.nomeCompleto + "!");
+                                Thread.sleep(espera);
                                 break;
                             }
                         }
@@ -467,9 +582,9 @@ public class Main {
                                                     System.out.println("\nDigite o cod do item (ou 0 para sair)");
                                                     indice = Integer.parseInt(entrada.nextLine());
 
-                                                    if (indice > marmitas.size() || indice < 0) {
+                                                    if (indice > marmitas.size() || indice <= 0) {
                                                         System.out.println("Indice inválido");
-                                                        
+                                                        continue;
                                                     }
                                                     break;
 
@@ -488,7 +603,7 @@ public class Main {
 
                                                     if (marmitas.get(indice - 1).quantidade + quantidade < 0) {
                                                         System.out.println("Estoque insuficiente");
-                                                        
+                                                        continue;
                                                     }
                                                     break;
 
@@ -599,6 +714,8 @@ public class Main {
 
                     System.out.println("Login realizado com sucesso!!");
                     Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                    System.out.println("Bem vindo, " + gerente.nomeCompleto + "!");
+                    Thread.sleep(espera);
 
                     limpar();
                     // inicia o looping do menu do gerente
@@ -679,14 +796,14 @@ public class Main {
                                                     limpar(); // limpa o console
                                                     System.out.println("valor vazio, por favor utilize palavras");
                                                     Thread.sleep(espera); //Espera de 2 seg, meramente visual
-                                                    
+                                                    continue;
                                                 }
                                                 // valida se foi digitado somente letras
                                                 if(!nome.matches("[a-zA-ZÀ-ÿ\\s]+")){
                                                     limpar(); // limpa o console
                                                     System.out.println("Por favor utilize somente palavras");
                                                     Thread.sleep(espera); //Espera de 2 seg, meramente visual
-                                                    
+                                                    continue;
                                                 }
                                                 break;
                                             }
@@ -696,10 +813,10 @@ public class Main {
                                                     System.out.println("\nDigite a quantidade deste sabor: ");
                                                     String quantidadeString = entrada.nextLine();
                                                     quantidade = Integer.parseInt(quantidadeString);
-                                                    if(quantidade<0){
-                                                        System.out.println("Digite somente valores positivos, se estiver em falta, utilize 0");
-                                                        
-                                                    }
+                                                    if(quantidade <= 0){
+                                                    System.out.println("Digite uma quantidade maior que 0");
+                                                    continue;
+                                                }
                                                     break;
                                                 }  catch(NumberFormatException e) {
                                                     System.out.println("Por favor digite um número inteiro");
@@ -710,11 +827,10 @@ public class Main {
                                             while(true){
                                                 try{
                                                     System.out.println("\nDigite o valor da marmita: ");
-                                                    String valorString = entrada.nextLine();
-                                                    valor = Double.parseDouble(valorString);
+                                                    valor = Double.parseDouble(entrada.nextLine());
                                                     if(valor<0){
                                                         System.out.println("Digite somente valores positivos, se for um brinde, utilize 0");
-                                                        
+                                                        continue;
                                                     }
                                                     break;
                                                 } catch(NumberFormatException e) {
@@ -739,9 +855,9 @@ public class Main {
                                                     String i = entrada.nextLine();
                                                     indice = Integer.parseInt(i);
                                                     // verifica se o indice está de acordo com o que existe no projeto
-                                                    if (indice > marmitas.size() || indice < 0){
+                                                    if (indice > marmitas.size() || indice <= 0){
                                                         System.out.println("Indice inexistente, por favor digite um indice válido");
-                                                        
+                                                        continue;
                                                     }
                                                     break;
                                                 } catch(NumberFormatException e) {
@@ -813,7 +929,7 @@ public class Main {
 
                                                     if(marmitas.get(indice-1).quantidade + quantidade < 0){
                                                         System.out.println("quantidade insuficiente em estoque");
-                                                        
+                                                        continue;
                                                     }
                                                     break;
                                                 }  catch(NumberFormatException e) {
@@ -935,14 +1051,75 @@ public class Main {
 
                                             VisualizarFuncionarios(funcionarios);
 
-                                            System.out.println("\nLogin do novo funcionário:");
-                                            login = entrada.nextLine();
+                                            while (true) {
+                                                System.out.println("\nDigite o seu Email:(ou 0 para sair)");
+                                                login = entrada.nextLine();
 
-                                            System.out.println("\nSenha do novo funcionário:");
-                                            senha = entrada.nextLine();
+                                                if (login.equals("0")) {
+                                                    limpar(); // limpa o console
+                                                    break;
+                                                }
 
-                                            adicionarFuncionario(funcionarios, login, senha);
-                                            limpar();
+                                                if(!verificarEmail(login)){
+                                                    limpar(); // limpa o console
+                                                    System.out.println("por favor utilize um email válido");
+                                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                    continue;
+                                                }
+                                                break;
+                                            }
+
+                                            if (login.equals("0")) {
+                                                System.out.println("Voltando...");
+                                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                limpar(); // limpa o console
+                                                continue;
+                                            }
+
+                                            // loop para validar a senha, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                            while(true){
+                                                System.out.println("\nDigite a sua Senha:(ou 0 para sair)");
+                                                senha = entrada.nextLine();
+
+                                                if (senha.equals("0")) {
+                                                    limpar(); // limpa o console
+                                                    break;
+                                                }
+
+                                                if(!verificarTamanhoSenha(senha)){
+                                                    limpar(); // limpa o console
+                                                    System.out.println("A senha deve ter pelo menos 8 caracteres, contendo letras e números");
+                                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                    continue;
+                                                }
+                                                break;
+                                            }
+                                            if (login.equals("0")) {
+                                                System.out.println("Voltando...");
+                                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                limpar(); // limpa o console
+                                                continue;
+                                            }
+                                                
+                                            // loop para validar o nome completo, caso digite 0 para sair, quebra o loop e volta para a tela de login
+                                            while(true){
+                                                System.out.println("\nDigite o seu nome completo:(ou 0 para sair)");
+                                                nomeCompleto = entrada.nextLine();
+
+                                                if (nomeCompleto.equals("0")) {
+                                                    limpar(); // limpa o console
+                                                    break;
+                                                }
+                                                if(!verificarTexto(nomeCompleto)){
+                                                    limpar(); // limpa o console
+                                                    System.out.println("Por favor utilize um nome válido, Somente letras e espaços");
+                                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                    continue;
+                                                }
+                                                break;
+                                            }
+
+                                            adicionarFuncionario(funcionarios, login, senha, nomeCompleto);
 
                                             System.out.println("Funcionário cadastrado com sucesso!");
                                             Thread.sleep(espera);
@@ -965,9 +1142,9 @@ public class Main {
                                                     String i = entrada.nextLine();
                                                     indice = Integer.parseInt(i);
                                                     // verifica se o indice está de acordo com o que existe no projeto
-                                                    if (indice > funcionarios.size() || indice < 0){
+                                                    if (indice > funcionarios.size() || indice <= 0){
                                                         System.out.println("Indice inexistente, por favor digite um indice válido");
-                                                        
+                                                        continue;
                                                     }
                                                     break;
                                                 } catch(NumberFormatException e) {
@@ -1029,9 +1206,68 @@ public class Main {
                 case "4"-> {
                     System.out.println("Encerrando...");
                     entrada.close();
+                    System.exit(0);
                 }
             }
         }
+    }
+
+     static boolean verificarString(String texto){
+
+        if(texto == null || texto.isBlank()){
+            return false;
+        }
+
+        try {
+            return Double.parseDouble(texto) >= 0 || Double.parseDouble(texto) < 0;
+        }catch (NumberFormatException e) {
+            return true;
+        }
+    }
+
+     static boolean verificarTexto(String texto){
+        boolean verificacao = true;
+        if(!verificarString(texto)){
+            verificacao = false;
+            return verificacao;
+        }
+        if(!texto.matches("[a-zA-ZÀ-ÿ\\s]+")){
+            verificacao = false;
+        }
+        return verificacao;
+    }
+
+     static boolean verificarTamanhoSenha(String senha){
+        boolean verificacao = true;
+        if(!verificarString(senha)){
+            verificacao = false;
+            return verificacao;
+        }
+        if(senha.length() < 8){
+            verificacao = false;
+        }
+        return verificacao;
+    }
+
+    public static boolean verificarEmail(String login){
+        boolean emailValido = true;
+        if(!verificarString(login)){
+            emailValido = false;
+            return emailValido;
+        }
+        // Expressão para validar o formato do email.
+        // ^ - Início da string
+        // [A-Za-z0-9+_.-]+ - Um ou mais caracteres ou símbolos permitidos antes do @
+        // @ - O símbolo @
+        // [A-Za-z0-9.-]+ - Um ou mais caracteres ou símbolos permitidos para o domínio
+        // \. - O símbolo de ponto (.) antes do final
+        // [A-Za-z]{2,} - o final deve conter pelo menos 2 caracteres, como br, com, etc.
+        // $ - Fim da string
+        String regexEmail = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+        if (!login.matches(regexEmail)) {
+            emailValido = false;
+        }
+        return emailValido;
     }
 
     // Função para adicionar marmitas, onde recebe o arraylist, e os atributos da classe marmita
@@ -1039,12 +1275,12 @@ public class Main {
         marmitas.add(new Marmita(nome, quantidade, valor));
     }
     // Função para adicionar cliente, onde recebe o arraylist, e os atributos da classe clientes
-     static void adicionarClientes(ArrayList<Cliente>clientes, String login, String senha){
-        clientes.add(new Cliente(login, senha));
+     static void adicionarClientes(ArrayList<Cliente>clientes, String login, String senha, String nomeCompleto){
+        clientes.add(new Cliente(login, senha, nomeCompleto));
     }
 
-     static void adicionarFuncionario(ArrayList<Funcionario>funcionario, String login, String senha){
-        funcionario.add(new Funcionario( login, senha));
+    static void adicionarFuncionario(ArrayList<Funcionario>funcionario, String login, String senha, String nomeCompleto){
+        funcionario.add(new Funcionario( login, senha, nomeCompleto));
     }
 
     // Função para o cliente realizar a compra, recebe o arraylist marmita, o indice da marmita escolhida e a quantidade
@@ -1086,14 +1322,13 @@ public class Main {
     }
      static void VisualizarFuncionarios(ArrayList<Funcionario>funcionarios){
         int visualizadorFuncionarios;
-        System.out.println(" Cod |      Login     | Senha ");
+        System.out.println(" Cod |          Nome          |      Login     | Senha ");
         System.out.println("-----------------------------");
 
         for (int i = 0; i < funcionarios.size(); i++ ){
             Funcionario f = funcionarios.get(i);
             visualizadorFuncionarios = i + 1;
-            System.out.printf("  %d  |  %s  | %s \n",visualizadorFuncionarios, f.login,  f.senha);
-        }
+            System.out.printf("  %d  |   %s   |  %s  | %s \n", visualizadorFuncionarios, f.nomeCompleto, f.login, f.senha);        }
     }
 
     // Função para remover marmitas, recebe o arraylist marmita, o indice da marmita escolhida
@@ -1167,11 +1402,14 @@ class Marmita {
 class Funcionario {
     String login;
     String senha;
+    String nomeCompleto;
+
 
     // construtor
-    public Funcionario(String login, String senha){
+    public Funcionario(String login, String senha, String nomeCompleto){
         this.login = login;
         this.senha = senha;
+        this.nomeCompleto = nomeCompleto;
     }
 }
 
@@ -1179,12 +1417,15 @@ class Funcionario {
 class Gerente {
     String login;
     String senha;
+    String nomeCompleto;
+
 
     // construtor
-    public Gerente(String login, String senha){
-        this.login = login;
-        this.senha = senha;
-    }
+    public Gerente(String login, String senha, String nomeCompleto){
+    this.login = login;
+    this.senha = senha;
+    this.nomeCompleto = nomeCompleto;
+}
 }
 
 //Cria a classe cliente
@@ -1192,11 +1433,13 @@ class Cliente {
     //Atributos
     String login;
     String senha;
+    String nomeCompleto;
 
     // construtor
-    public Cliente(String login, String senha){
+    public Cliente(String login, String senha, String nomeCompleto){
         this.login = login;
         this.senha = senha;
+        this.nomeCompleto = nomeCompleto;
     }
 }
 
@@ -1205,6 +1448,7 @@ class Pedido {
     int codigo;
     String nomeMarmita;
     int quantidade;
+    double valorUnitario;
     double valorTotal;
     String formaPagamento;
 
@@ -1213,6 +1457,7 @@ class Pedido {
         this.codigo = codigo;
         this.nomeMarmita = nomeMarmita;
         this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
         this.valorTotal = valorTotal;
         this.formaPagamento = formaPagamento;
     }
