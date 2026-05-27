@@ -102,6 +102,13 @@ public class FluxoGeral {
                                         limpar();
                                         continue;
                                     }
+
+                                    if(cadastroExistente(clientes, funcionarios, gerente, login)){
+                                        limpar();
+                                        System.out.println("Este email já está cadastrado!");
+                                        Thread.sleep(espera);
+                                        continue;
+                                    }
                                     break;
                                 }
 
@@ -714,6 +721,7 @@ public class FluxoGeral {
 
                     System.out.println("Login realizado com sucesso!!");
                     Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                    limpar();
                     System.out.println("Bem vindo, " + gerente.nomeCompleto + "!");
                     Thread.sleep(espera);
 
@@ -1066,6 +1074,13 @@ public class FluxoGeral {
                                                     Thread.sleep(espera); //Espera de 2 seg, meramente visual
                                                     continue;
                                                 }
+
+                                                if(cadastroExistente(clientes, funcionarios, gerente, login)){
+                                                    limpar();
+                                                    System.out.println("Este email já está cadastrado!");
+                                                    Thread.sleep(espera);
+                                                    continue;
+                                                }
                                                 break;
                                             }
 
@@ -1344,6 +1359,35 @@ public class FluxoGeral {
      static void updateMarmitas(ArrayList<Marmita> marmitas, int indice, int quantidade) {
         Marmita m = marmitas.get(indice);
         m.quantidade += quantidade;
+    }
+
+    static boolean cadastroExistente(
+        ArrayList<Cliente> clientes,
+        ArrayList<Funcionario> funcionarios,
+        Gerente gerente,
+        String login
+    ){
+
+        // verifica clientes
+        for(Cliente c : clientes){
+            if(c.login.equalsIgnoreCase(login)){
+                return true;
+            }
+        }
+
+        // verifica funcionarios
+        for(Funcionario f : funcionarios){
+            if(f.login.equalsIgnoreCase(login)){
+                return true;
+            }
+        }
+
+        // verifica gerente
+        if(gerente.login.equalsIgnoreCase(login)){
+            return true;
+        }
+
+        return false;
     }
 
      static void verificarNotificacao(ArrayList<Marmita>marmitas){
