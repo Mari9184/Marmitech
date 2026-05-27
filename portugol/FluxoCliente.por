@@ -37,278 +37,273 @@ programa
     //Verifica a forma de entrada e sua validade e retorna  sempre que qualquer erro ocorrer ou não for validado o login
 
 
-          escreva("Entrando como Cliente...\n")
-          u.aguarde(2000)
-          limpa()
-          //Faz autenticação de login como cliente, seja indentificando-se ou não
-          faca {
-      
-            escreva("_____Cliente_____\n")
+  escreva("Entrando como Cliente...\n")
+  u.aguarde(2000)
+  limpa()
+  //Faz autenticação de login como cliente, seja indentificando-se ou não
+  faca {
 
-            escreva("\nDeseja se identificar?\n")
-            
-            escreva("\n1 - Não\n")
-            escreva("2 - Sim\n")
-            escreva("3 - Não tenho login\n")
-            
-            escreva("\nOpção: ")
-            leia(opcao)
-            limpa()
+    escreva("_____Cliente_____\n")
+
+    escreva("\nDeseja se identificar?\n")
     
-            escolha (opcao){
+    escreva("\n1 - Não\n")
+    escreva("2 - Sim\n")
+    escreva("3 - Não tenho login\n")
+    
+    escreva("\nOpção: ")
+    leia(opcao)
+    limpa()
+
+    escolha (opcao){
+
+      caso 1:
+
+        escreva("\nContinuando para sistema de compra...\n")
+        login=verdadeiro
+        limpa()
+
+      pare
+          
+      caso 2:
+        //Faz a autenticação do login identificado
+
+        autenticado = falso
+        enquanto(nao autenticado){
+
+          escreva("Email: ")
+          leia(usuario)
+          escreva("Senha: ")
+          leia(senha)
+
+          autenticado = falso
+
+          para(inteiro i = 0; i < totalclientes; i++){
+            se(usuario == logincliente[i] e senha == senhacliente[i]){
+              autenticado = verdadeiro
+            }
+          }
+
+          se (usuario == "1" e senha == "1"){
+            autenticado = verdadeiro
+          }
+
+          se(autenticado){
+            escreva("Login realizado com sucesso!\n")
+            login = verdadeiro
+          }
+
+          senao{
+            escreva("Login inválido!\n")
+          }
+        }
         
-              caso 1:
+      limpa()
+      pare
+      caso 3:
 
-                escreva("\nContinuando para sistema de compra...\n")
-                login=verdadeiro
+        escreva("\n_____CADASTRO CLIENTE_____\n")
+
+        escreva("\nNovo email: ")
+        leia(logincliente[totalclientes])
+        escreva("\nNova senha: ")
+        leia(senhacliente[totalclientes])
+        escreva("Informe seu Nome: ")
+        leia(nomecliente[totalclientes])
+        totalclientes = totalclientes + 1
+
+        escreva("\nCadastro realizado com sucesso!\n")
+
+        u.aguarde(2000)
+        limpa()
+
+      pare
+      caso contrario:
+
+        limpa()
+        escreva("Opção Inválida\n")
+        u.aguarde(2000)
+        limpa()
+      
+      pare
+    }
+
+  } enquanto(nao login)
+
+  enquanto(sistema){
+
+    escreva("_____________!!! Marmitas !!!_____________\n")
+    
+    escreva("\n")
+    //Faz a tabulação do cardápio disponível
+    para (inteiro posicao = 0; posicao < cardapiodisponivel; posicao++){
+      escreva (codmarmita[posicao], "\t\t", nomemarmita[posicao], "\t\t", quantidademarmita[posicao], "\t\t\tR$", valormarmita[posicao], "\n")
+    }
+
+    escreva("__________________________________________\n")
+
+      escreva("\nDeseja comprar?\n")
+
+      escreva("\n1 - Sim\n")
+      escreva("2 - Não\n")
+
+      escreva("\nOpção: ")
+      leia(opcao)
+
+      escolha (opcao){
+        
+        caso 1:
+          //Faz a verificação da validade da marmita em estoque e efetua a compra se a validação for correta
+          faca {
+
+            escreva("\nDigite o código da marmita desejada ou digite '0' para voltar: ")
+            leia(item)valido=falso
+
+            para (inteiro posicao = 0; posicao < cardapiodisponivel; posicao++){
+
+            se (codmarmita[posicao] == item){
+              valido=verdadeiro
+              escreva("\nItem - ", nomemarmita[posicao], "\n")
+
+              faca  {
+
+                compra=falso
+                escreva("\nInforme a quantidade que deseja comprar ou digite '0' para voltar: ")
+                leia(quantidade)
+                    
+                se (quantidade <= quantidademarmita[posicao] e quantidade > 0){
+
+
+                real total 
+                cadeia formapagamento
+
+                total = quantidade * valormarmita[posicao]
+
                 limpa()
+                escreva("_____ PAGAMENTO _____\n")
 
-              pare
-                  
-              caso 2:
-                //Faz a autenticação do login identificado
+                escreva("\n1 - Pix\n")
+                escreva("2 - Cartão\n")
+                escreva("3 - Dinheiro\n")
+                escreva("4 - Cancelar Compra\n")
 
-                autenticado = falso
-                enquanto(nao autenticado){
+                escreva("\nOpção: ")
+                leia(opcao)
 
-                  escreva("Email: ")
-                  leia(usuario)
-                  escreva("Senha: ")
-                  leia(senha)
+                escolha(opcao){
 
-                  autenticado = falso
+                  caso 1:
+                    formapagamento = "Pix"
+                  pare
 
-                  para(inteiro i = 0; i < totalclientes; i++){
-                    se(usuario == logincliente[i] e senha == senhacliente[i]){
-                      autenticado = verdadeiro
-                    }
-                  }
+                  caso 2:
+                    formapagamento = "Cartão"
+                  pare
 
-                  se(autenticado){
-                    escreva("Login realizado com sucesso!\n")
-                    login = verdadeiro
-                  }
-                  senao{
-                    escreva("Login inválido!\n")
-                  }
+                  caso 3:
+                    formapagamento = "Dinheiro"
+                  pare
 
-                  se (login == "1" e senha == "1"){
-                    login = verdadeiro
-                    escreva("Login realizado com sucesso!\n")
+                  caso 4:
+
+                    escreva("\nCompra cancelada!\n")
                     u.aguarde(2000)
                     limpa()
-                  }
+                    compra = verdadeiro
+
+                  pare
+
+                  caso contrario:
+
+                    escreva("\nPagamento inválido!\n")
+                    u.aguarde(2000)
+                    limpa()
+
+                  pare
                 }
-              limpa()
-              pare
-              caso 3:
 
-                escreva("\n_____CADASTRO CLIENTE_____\n")
+                se(opcao >= 1 e opcao <= 3){
 
-                escreva("\nNovo email: ")
-                leia(logincliente[totalclientes])
-                escreva("\nNova senha: ")
-                leia(senhacliente[totalclientes])
-                escreva("Informe seu Nome: ")
-                leia(nomecliente[totalclientes])
-                totalclientes = totalclientes + 1
+                  quantidademarmita[posicao] = quantidademarmita[posicao] - quantidade
+                  
+                  codpedido[totalpedidos] = totalpedidos + 1
+                  nomepedido[totalpedidos] = nomemarmita[posicao]
+                  quantidadpedido[totalpedidos] = quantidade
+                  valorpedido[totalpedidos] = total
+                  pagamentopedido[totalpedidos] = formapagamento
 
-                escreva("\nCadastro realizado com sucesso!\n")
+                  totalpedidos = totalpedidos + 1
 
+                  limpa()
+
+                  escreva("_____ NOTA FISCAL _____\n")
+
+                  escreva("\nPedido: ", codpedido[totalpedidos - 1], "\n")
+                  escreva("Produto: ", nomepedido[totalpedidos - 1], "\n")
+                  escreva("Quantidade: ", quantidadpedido[totalpedidos - 1], "\n")
+                  escreva("Valor Total: R$", valorpedido[totalpedidos - 1], "\n")
+                  escreva("Pagamento: ", pagamentopedido[totalpedidos - 1], "\n")
+
+                  escreva("\nCompra realizada com sucesso!\n")
+
+                  u.aguarde(4000)
+                  limpa()
+
+                  compra = verdadeiro
+                } 
                 u.aguarde(2000)
                 limpa()
 
-              pare
-              caso contrario:
-
-                limpa()
-                escreva("Opção Inválida\n")
-                u.aguarde(2000)
-                limpa()
-              
-              pare
-            }
-
-          } enquanto(nao login)
-      
-          enquanto(sistema){
-
-            escreva("_____________!!! Marmitas !!!_____________\n")
+                pare
+          
+                }senao se (quantidade == 0){
+                  escreva("\nRetornando...\n")
+                  compra=verdadeiro
+          
+                }
             
-            escreva("\n")
-            //Faz a tabulação do cardápio disponível
-            para (inteiro posicao = 0; posicao < cardapiodisponivel; posicao++){
-              escreva (codmarmita[posicao], "\t\t", nomemarmita[posicao], "\t\t", quantidademarmita[posicao], "\t\t\tR$", valormarmita[posicao], "\n")
+                senao{
+                  escreva("\nQuantidade em estoque insuficiente\n")
+                }
+            
+              } enquanto(nao compra)
+
             }
 
-            escreva("__________________________________________\n")
-
-              escreva("\nDeseja comprar?\n")
-
-              escreva("\n1 - Sim\n")
-              escreva("2 - Não\n")
-
-              escreva("\nOpção: ")
-              leia(opcao)
-
-              escolha (opcao){
-                
-                caso 1:
-                  //Faz a verificação da validade da marmita em estoque e efetua a compra se a validação for correta
-                  faca {
-
-                    escreva("\nDigite o código da marmita desejada ou digite '0' para voltar: ")
-                    leia(item)valido=falso
-
-                    para (inteiro posicao = 0; posicao < cardapiodisponivel; posicao++){
-
-                    se (codmarmita[posicao] == item){
-                      valido=verdadeiro
-                      escreva("\nItem - ", nomemarmita[posicao], "\n")
-
-                      faca  {
-
-                        compra=falso
-                        escreva("\nInforme a quantidade que deseja comprar ou digite '0' para voltar: ")
-                        leia(quantidade)
-                            
-                        se (quantidade <= quantidademarmita[posicao] e quantidade > 0){
-
-
-                        real total 
-                        cadeia formapagamento
-
-                        total = quantidade * valormarmita[posicao]
-
-                        limpa()
-                        escreva("_____ PAGAMENTO _____\n")
-
-                        escreva("\n1 - Pix\n")
-                        escreva("2 - Cartão\n")
-                        escreva("3 - Dinheiro\n")
-                        escreva("4 - Cancelar Compra\n")
-
-                        escreva("\nOpção: ")
-                        leia(opcao)
-
-                        escolha(opcao){
-
-                          caso 1:
-                            formapagamento = "Pix"
-                          pare
-
-                          caso 2:
-                            formapagamento = "Cartão"
-                          pare
-
-                          caso 3:
-                            formapagamento = "Dinheiro"
-                          pare
-
-                          caso 4:
-
-                            escreva("\nCompra cancelada!\n")
-                            u.aguarde(2000)
-                            limpa()
-                            compra = verdadeiro
-
-                          pare
-
-                          caso contrario:
-
-                            escreva("\nPagamento inválido!\n")
-                            u.aguarde(2000)
-                            limpa()
-
-                          pare
-                        }
-
-                        se(opcao >= 1 e opcao <= 3){
-
-                          quantidademarmita[posicao] = quantidademarmita[posicao] - quantidade
-                          
-                          codpedido[totalpedidos] = totalpedidos + 1
-                          nomepedido[totalpedidos] = nomemarmita[posicao]
-                          quantidadpedido[totalpedidos] = quantidade
-                          valorpedido[totalpedidos] = total
-                          pagamentopedido[totalpedidos] = formapagamento
-
-                          totalpedidos = totalpedidos + 1
-
-                          limpa()
-
-                          escreva("_____ NOTA FISCAL _____\n")
-
-                          escreva("\nPedido: ", codpedido[totalpedidos - 1], "\n")
-                          escreva("Produto: ", nomepedido[totalpedidos - 1], "\n")
-                          escreva("Quantidade: ", quantidadpedido[totalpedidos - 1], "\n")
-                          escreva("Valor Total: R$", valorpedido[totalpedidos - 1], "\n")
-                          escreva("Pagamento: ", pagamentopedido[totalpedidos - 1], "\n")
-
-                          escreva("\nCompra realizada com sucesso!\n")
-
-                          u.aguarde(4000)
-                          limpa()
-
-                          compra = verdadeiro
-                        } 
-                        u.aguarde(2000)
-                        limpa()
-
-                        pare
-                  
-                        }senao se (quantidade == 0){
-                          escreva("\nRetornando...\n")
-                          compra=verdadeiro
-                  
-                        }
-                    
-                        senao{
-                          escreva("\nQuantidade em estoque insuficiente\n")
-                        }
-                    
-                      } enquanto(nao compra)
-
-                    }
-
-                    } se (item == 0){
-                      escreva("\nRetornando...\n")
-                      valido=verdadeiro
-                      u.aguarde(2000)
-                      limpa()
-                    }
-
-                    se (nao valido){
-                      escreva("\nCódigo de item não encontrado!\n")
-                    }
-                  
-                    } enquanto(nao valido)
-                pare
-
-                caso 2:
-
-                  limpa()
-                  escreva("Saindo...\n")
-                  sistema = falso
-                  u.aguarde(2000)
-                  limpa()
-
-                pare
-
-                caso contrario:
-                    
-                  limpa()
-                  escreva("Opção Inválida\n")
-                  u.aguarde(2000)
-                  limpa()
-
-                pare            
-                  
-              }
+            } se (item == 0){
+              escreva("\nRetornando...\n")
+              valido=verdadeiro
+              u.aguarde(2000)
+              limpa()
             }
 
+            se (nao valido){
+              escreva("\nCódigo de item não encontrado!\n")
+            }
+          
+            } enquanto(nao valido)
+        pare
 
+        caso 2:
+
+          limpa()
+          escreva("Saindo...\n")
+          sistema = falso
+          u.aguarde(2000)
+          limpa()
+
+        pare
+
+        caso contrario:
+            
+          limpa()
+          escreva("Opção Inválida\n")
+          u.aguarde(2000)
+          limpa()
+
+        pare            
+          
+      }
+    }
   }
 }   
-
-
