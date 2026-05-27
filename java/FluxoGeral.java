@@ -1338,7 +1338,7 @@ public class FluxoGeral {
      static void VisualizarFuncionarios(ArrayList<Funcionario>funcionarios){
         int visualizadorFuncionarios;
         System.out.println(" Cod |          Nome          |      Login     | Senha ");
-        System.out.println("-----------------------------");
+        System.out.println("-------------------------------------------------------");
 
         for (int i = 0; i < funcionarios.size(); i++ ){
             Funcionario f = funcionarios.get(i);
