@@ -116,12 +116,6 @@ programa
                     escreva("Login inválido!\n")
                   }
 
-                  se (login == "1" e senha == "1"){
-                    login = verdadeiro
-                    escreva("Login realizado com sucesso!\n")
-                    u.aguarde(2000)
-                    limpa()
-                  }
                 }
               limpa()
               pare
