@@ -434,6 +434,14 @@ public class FluxoGerente {
                                                     Thread.sleep(espera); //Espera de 2 seg, meramente visual
                                                     continue;
                                                 }
+
+                                                if(cadastroExistente(funcionarios, gerente, login)){
+                                                    limpar();
+                                                    System.out.println("Este email já está cadastrado!");
+                                                    Thread.sleep(espera);
+                                                    limpar();
+                                                    continue;
+                                                }
                                                 break;
                                             }
 
@@ -615,6 +623,28 @@ public class FluxoGerente {
             verificacao = false;
         }
         return verificacao;
+    }
+
+    static boolean cadastroExistente(
+    ArrayList<Funcionario> funcionarios,
+    Gerente gerente,
+    String login
+    ){
+
+
+        // verifica funcionarios
+        for(Funcionario f : funcionarios){
+            if(f.login.equalsIgnoreCase(login)){
+                return true;
+            }
+        }
+
+        // verifica gerente
+        if(gerente.login.equalsIgnoreCase(login)){
+            return true;
+        }
+
+        return false;
     }
 
     public static boolean verificarEmail(String login){
