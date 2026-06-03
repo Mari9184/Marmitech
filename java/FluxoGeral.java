@@ -3,14 +3,11 @@
 //Grupo: Ariel Isidro Nina Saavedra, Bruno Geanini dos Reis, Gabriel Tolcsvai de Cronis, Heloísa Weiss Willwohl Sanches, Mariane Santana da Silva, Miguel Augusto de Oliveira Santos
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FluxoGeral {
     public static void main(String[] args) throws InterruptedException {
-
-        Duration espera = Duration.ofSeconds(2);
 
         Gerente gerente = new Gerente("gerente@gmail.com", "gerente3", "Maria Dolores"); //Instancia o objeto gerente, atribuindo valores aos parametros.
         ArrayList<Cliente> clientes = new ArrayList<>(); // Instancia um objeto Cliente do tipo ArrayList, para utilizar vetor de forma dinamica
@@ -45,7 +42,7 @@ public class FluxoGeral {
         limpar();
 
         System.out.println("Iniciando Sistema ...");
-        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+        Thread.sleep(2000); //2000 de 2 seg, meramente visual
         limpar(); // limpa o console
 
         while (true) {
@@ -65,7 +62,7 @@ public class FluxoGeral {
                 case "1"-> {
                     System.out.println("Iniciando como Cliente...");
                     sistemaCliente = true;
-                    Thread.sleep(espera);//Espera de 2 seg, meramente visual
+                    Thread.sleep(2000);//2000 de 2 seg, meramente visual
                     // mantem o cliente rodando
                     while (sistemaCliente) {
                         while(true){
@@ -98,7 +95,7 @@ public class FluxoGeral {
                                     if(!verificarEmail(login)){
                                         limpar(); // limpa o console
                                         System.out.println("por favor utilize um email válido!");
-                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                        Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                         limpar();
                                         continue;
                                     }
@@ -106,7 +103,7 @@ public class FluxoGeral {
                                     if(cadastroExistente(clientes, funcionarios, gerente, login)){
                                         limpar();
                                         System.out.println("Este email já está cadastrado!");
-                                        Thread.sleep(espera);
+                                        Thread.sleep(2000);
                                         continue;
                                     }
                                     break;
@@ -114,7 +111,7 @@ public class FluxoGeral {
 
                                 if (login.equals("0")) {
                                     System.out.println("Voltando...");
-                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                     limpar(); // limpa o console
                                     continue;
                                 }
@@ -132,14 +129,14 @@ public class FluxoGeral {
                                     if(!verificarTamanhoSenha(senha)){
                                         limpar(); // limpa o console
                                         System.out.println("A senha deve ter pelo menos 8 caracteres, contendo letras e números");
-                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                        Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                         continue;
                                     }
                                     break;
                                 }
                                 if (login.equals("0")) {
                                     System.out.println("Voltando...");
-                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                     limpar(); // limpa o console
                                     continue;
                                 }
@@ -156,7 +153,7 @@ public class FluxoGeral {
                                     if(!verificarTexto(nomeCompleto)){
                                         limpar(); // limpa o console
                                         System.out.println("Por favor utilize um nome válido, Somente letras e espaços");
-                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                        Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                         continue;
                                     }
                                     break;
@@ -164,7 +161,7 @@ public class FluxoGeral {
 
                                 if (login.equals("0")) {
                                     System.out.println("Voltando...");
-                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                     limpar(); // limpa o console
                                     continue;
                                 }
@@ -175,7 +172,7 @@ public class FluxoGeral {
                                 limpar();
 
                                 System.out.println("Cliente cadastrado com sucesso!");
-                                Thread.sleep(espera);
+                                Thread.sleep(2000);
                                 limpar();
 
                             }
@@ -183,13 +180,13 @@ public class FluxoGeral {
                             else if (realizarLogin.equals("4")) {
                                 limpar();
                                 System.out.println("Voltando...");
-                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                 sistemaCliente = false; // desativa o fluxo de cliente
                                 break;
 
                             } else if(!realizarLogin.equals("1")){
                                 System.out.println("Opção inválida, Digite um numero válido");
-                                Thread.sleep(espera); //Espera de 1 seg, meramente visual
+                                Thread.sleep(2000); //2000 de 1 seg, meramente visual
                             }
 
                             // entrada de daddos para realizar o acesso
@@ -209,16 +206,16 @@ public class FluxoGeral {
                                     menuCliente = true;  // ativa a condição para iniciar o menu
                                     System.out.println("Login realizado com sucesso!!");
                                     limpar();
-                                    Thread.sleep(espera);
+                                    Thread.sleep(2000);
                                     System.out.println("Bem vindo, " + cliente.nomeCompleto + "!");
-                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                     break;
                                 }
                             }
                             //verifica se autenticacao é falsa e informa que o login está inválido
                             if (!autenticacao) {
                                 System.out.println("Login ou senha inválidos!");
-                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                             }
                             break;
                         }
@@ -231,7 +228,7 @@ public class FluxoGeral {
                             // informação que está entrando no menu
                             limpar(); // limpa o console
                             System.out.println("Acessando Menu...");
-                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
 
                             limpar(); // limpa o console
 
@@ -279,7 +276,7 @@ public class FluxoGeral {
                                     if(indice == -1){
                                         limpar(); // limpa o console
                                         System.out.println("voltando...");
-                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                        Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                         limpar(); // limpa o console
                                         break;
                                     }
@@ -309,7 +306,7 @@ public class FluxoGeral {
                                             else if(marmitas.get(indice).quantidade - quantidade < 0){
                                                 limpar();
                                                 System.out.println("quantidade insuficiente em estoque");
-                                                Thread.sleep(espera);
+                                                Thread.sleep(2000);
                                                 limpar();
                                                 continue;
                                             }
@@ -324,7 +321,7 @@ public class FluxoGeral {
                                     if(quantidade == 0){
                                         limpar();
                                         System.out.println("Voltando...");
-                                        Thread.sleep(espera);
+                                        Thread.sleep(2000);
                                         break;
                                     }
 
@@ -346,29 +343,29 @@ public class FluxoGeral {
                                         case "1"-> {
                                             formaPagamento = "Pix";
                                             System.out.println("\nGerando QR Code Pix...");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             limpar();
                                             }
 
                                         case "2"-> {
                                             formaPagamento = "Cartão";
                                             System.out.println("\nProcessando cartão...");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             limpar();
                                             }
 
                                         case "3"-> {
                                             formaPagamento = "Dinheiro";
                                             System.out.println("\nPagamento em dinheiro...");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             limpar();
                                             }
 
                                         case "4"-> {
                                             System.out.println("Cancelando Pagamento....");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             System.out.println("Pagamento cancelado!!");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             limpar();
 
                                             pagamentoCancelado = true;
@@ -386,13 +383,13 @@ public class FluxoGeral {
                                     System.out.println("\n_____ PAGAMENTO _____");
                                     System.out.println("Forma: " + formaPagamento);
                                     System.out.printf("Valor: R$ %.2f\n", total);
-                                    Thread.sleep(espera);
+                                    Thread.sleep(2000);
                                     limpar();
 
                                     // valida se digitou 0 para sair
                                     if(quantidade == 0){
                                         System.out.println("Voltando...");
-                                        Thread.sleep(espera);
+                                        Thread.sleep(2000);
                                         continuar = false;
                                         break;
                                     }
@@ -419,8 +416,8 @@ public class FluxoGeral {
                                     System.out.println("Pagamento: " + pedido.formaPagamento);
                                     System.out.println("_________________________");
 
-                                    Thread.sleep(espera);
-                                    Thread.sleep(espera);
+                                    Thread.sleep(2000);
+                                    Thread.sleep(2000);
                                     
                                     
                                     }
@@ -429,13 +426,13 @@ public class FluxoGeral {
                                     menuCliente = false;
                                     limpar();
                                     System.out.println("Voltando...");
-                                    Thread.sleep(espera);
+                                    Thread.sleep(2000);
                                     limpar();
                                     }
                                 // pede uma opção válida em caso de digitar algo fora das opções
                                 default-> {
                                     System.out.println("Opção inválida, por favor digite uma opção válida");
-                                    Thread.sleep(espera);
+                                    Thread.sleep(2000);
                                     limpar();
                                 }
                             }
@@ -445,7 +442,7 @@ public class FluxoGeral {
                 // entra no fluxo do funcionário
                 case "2"-> {
                     System.out.println("Iniciando como Funcionario...");
-                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                     limpar(); // limpa o console
 
                     // inicia looping de login
@@ -466,7 +463,7 @@ public class FluxoGeral {
                                 continuar = true;
                                 
                                 System.out.println("Bem vindo, " + funcionario.nomeCompleto + "!");
-                                Thread.sleep(espera);
+                                Thread.sleep(2000);
                                 break;
                             }
                         }
@@ -474,14 +471,14 @@ public class FluxoGeral {
                             break;
                         }
                         System.out.println("login Invalido!\nDigite novamente\n");
-                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                        Thread.sleep(2000); //2000 de 2 seg, meramente visual
                         limpar(); // limpa o console
                         
                     }
 
 
                     System.out.println("Login realizado com sucesso!!");
-                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
 
                     limpar();
 
@@ -503,7 +500,7 @@ public class FluxoGeral {
                             case "1"-> {
 
                                 System.out.println("Abrindo Notificações...");
-                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                 limpar();
 
                                 verificarNotificacao(marmitas);
@@ -516,7 +513,7 @@ public class FluxoGeral {
                                         if (escolha == 0) {
                                             limpar();
                                             System.out.println("voltando...");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar();
                                             break;
                                         } else {
@@ -564,7 +561,7 @@ public class FluxoGeral {
                                                     if (escolha == 0) {
                                                         limpar();
                                                         System.out.println("voltando...");
-                                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                        Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                         limpar();
                                                         break;
                                                     } else {
@@ -623,10 +620,10 @@ public class FluxoGeral {
 
                                             limpar();
                                             System.out.println("Ação bem sucedida!");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
 
                                             visualizarMarmitas(marmitas);
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar();
 
                                             }
@@ -634,7 +631,7 @@ public class FluxoGeral {
                                         // encerra o menu do estoque
                                         case "3"-> {
                                             System.out.println("Voltando...");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar();
                                             estoque = false;
                                             }
@@ -642,7 +639,7 @@ public class FluxoGeral {
                                         // opção inválida
                                         default-> {
                                             System.out.println("Opção inválida");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar();
                                         }
 
@@ -655,7 +652,7 @@ public class FluxoGeral {
                             case "3"-> {
 
                                 System.out.println("Abrindo Pedidos...");
-                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                 limpar();
 
                                 visualizarPedidos(pedidos);
@@ -668,7 +665,7 @@ public class FluxoGeral {
                                         if (escolha == 0) {
                                             limpar();
                                             System.out.println("voltando...");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar();
                                             break;
                                         } else {
@@ -686,7 +683,7 @@ public class FluxoGeral {
                             // desativa o menu de funcionario voltando para o fluxo principal
                             case "4"-> {
                                 System.out.println("Voltando...");
-                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                 limpar();
                                 continuar = false;
                                 }
@@ -697,7 +694,7 @@ public class FluxoGeral {
                 // abre o fluxo de gerente
                 case "3"-> {
                     System.out.println("Iniciando como Gerente...");
-                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                     limpar(); // limpa o console
 
                     // inicia lopping de entrar na conta do gerente
@@ -714,16 +711,16 @@ public class FluxoGeral {
                             break;
                         }
                         System.out.println("login Invalido!\nDigite novamente\n");
-                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                        Thread.sleep(2000); //2000 de 2 seg, meramente visual
                         limpar(); // limpa o console
                         
                     }
 
                     System.out.println("Login realizado com sucesso!!");
-                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                     limpar();
                     System.out.println("Bem vindo, " + gerente.nomeCompleto + "!");
-                    Thread.sleep(espera);
+                    Thread.sleep(2000);
 
                     limpar();
                     // inicia o looping do menu do gerente
@@ -743,7 +740,7 @@ public class FluxoGeral {
                             case "1"-> {
 
                                 System.out.println("Abrindo Notificações...");
-                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                 limpar();
 
                                 verificarNotificacao(marmitas);
@@ -756,7 +753,7 @@ public class FluxoGeral {
                                         if (escolha == 0) {
                                             limpar();
                                             System.out.println("voltando...");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar();
                                             break;
                                         } else {
@@ -803,14 +800,14 @@ public class FluxoGeral {
                                                 if(nome.trim().isEmpty()){
                                                     limpar(); // limpa o console
                                                     System.out.println("valor vazio, por favor utilize palavras");
-                                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                     continue;
                                                 }
                                                 // valida se foi digitado somente letras
                                                 if(!nome.matches("[a-zA-ZÀ-ÿ\\s]+")){
                                                     limpar(); // limpa o console
                                                     System.out.println("Por favor utilize somente palavras");
-                                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                     continue;
                                                 }
                                                 break;
@@ -877,7 +874,7 @@ public class FluxoGeral {
                                             if(indice == 0){
                                                 limpar(); // limpa o console
                                                 System.out.println("voltando...");
-                                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                 limpar(); // limpa o console
                                                 break;
                                             }
@@ -887,12 +884,12 @@ public class FluxoGeral {
                                             limpar(); // limpa o console
 
                                             System.out.println("Ação bem sucedida!");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar(); // limpa o console
 
                                             System.out.println("O estoque se encontra assim:\n");
                                             visualizarMarmitas(marmitas);
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar(); // limpa o console
 
                                             }
@@ -923,7 +920,7 @@ public class FluxoGeral {
                                             if(indice == 0){
                                                 limpar(); // limpa o console
                                                 System.out.println("voltando...");
-                                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                 limpar(); // limpa o console
                                                 break;
                                             }
@@ -951,25 +948,25 @@ public class FluxoGeral {
                                             // limpar(); // limpa o console
 
                                             System.out.println("Ação bem sucedida!");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             // limpar();
 
                                             System.out.println("O estoque se encontra assim:\n");
                                             visualizarMarmitas(marmitas);
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar();
 
                                             }
                                         // encerra o fluxo do estoque
                                         case "4"-> {
                                             System.out.println("voltando...");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             estoque = false;
                                             }
                                         // opção inválida
                                         default-> {
                                             System.out.println("Opção inválida");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             limpar();
                                         }
                                     }
@@ -979,7 +976,7 @@ public class FluxoGeral {
                             case "3"-> {
 
                                 System.out.println("Abrindo Pedidos...");
-                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                 limpar();
 
                                 visualizarPedidos(pedidos);
@@ -992,7 +989,7 @@ public class FluxoGeral {
                                         if (escolha == 0) {
                                             limpar();
                                             System.out.println("voltando...");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar();
                                             break;
                                         } else {
@@ -1016,7 +1013,7 @@ public class FluxoGeral {
                                     limpar();
 
                                     System.out.println("Entrando em Gerenciamento de Funcionarios...");
-                                    Thread.sleep(espera);
+                                    Thread.sleep(2000);
                                     limpar();
 
                                     System.out.println("_____ Gerenciamento de Funcionarios _____");
@@ -1040,7 +1037,7 @@ public class FluxoGeral {
                                                     if (escolha == 0) {
                                                         limpar();
                                                         System.out.println("voltando...");
-                                                        Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                        Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                         limpar();
                                                         break;
                                                     }
@@ -1071,14 +1068,14 @@ public class FluxoGeral {
                                                 if(!verificarEmail(login)){
                                                     limpar(); // limpa o console
                                                     System.out.println("por favor utilize um email válido");
-                                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                     continue;
                                                 }
 
                                                 if(cadastroExistente(clientes, funcionarios, gerente, login)){
                                                     limpar();
                                                     System.out.println("Este email já está cadastrado!");
-                                                    Thread.sleep(espera);
+                                                    Thread.sleep(2000);
                                                     continue;
                                                 }
                                                 break;
@@ -1086,7 +1083,7 @@ public class FluxoGeral {
 
                                             if (login.equals("0")) {
                                                 System.out.println("Voltando...");
-                                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                 limpar(); // limpa o console
                                                 continue;
                                             }
@@ -1104,14 +1101,14 @@ public class FluxoGeral {
                                                 if(!verificarTamanhoSenha(senha)){
                                                     limpar(); // limpa o console
                                                     System.out.println("A senha deve ter pelo menos 8 caracteres, contendo letras e números");
-                                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                     continue;
                                                 }
                                                 break;
                                             }
                                             if (login.equals("0")) {
                                                 System.out.println("Voltando...");
-                                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                 limpar(); // limpa o console
                                                 continue;
                                             }
@@ -1128,7 +1125,7 @@ public class FluxoGeral {
                                                 if(!verificarTexto(nomeCompleto)){
                                                     limpar(); // limpa o console
                                                     System.out.println("Por favor utilize um nome válido, Somente letras e espaços");
-                                                    Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                    Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                     continue;
                                                 }
                                                 break;
@@ -1137,11 +1134,11 @@ public class FluxoGeral {
                                             adicionarFuncionario(funcionarios, login, senha, nomeCompleto);
 
                                             System.out.println("Funcionário cadastrado com sucesso!");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             limpar();
 
                                             VisualizarFuncionarios(funcionarios);
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             limpar();
 
                                             }
@@ -1171,7 +1168,7 @@ public class FluxoGeral {
                                             if(indice == 0){
                                                 limpar(); // limpa o console
                                                 System.out.println("voltando...");
-                                                Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                                Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                                 limpar(); // limpa o console
                                                 break;
                                             }
@@ -1181,18 +1178,18 @@ public class FluxoGeral {
                                             limpar(); // limpa o console
 
                                             System.out.println("Ação bem sucedida!");
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar(); // limpa o console
 
                                             System.out.println("O lista de funcionários se encontra assim:\n");
                                             VisualizarFuncionarios(funcionarios);
-                                            Thread.sleep(espera); //Espera de 2 seg, meramente visual
+                                            Thread.sleep(2000); //2000 de 2 seg, meramente visual
                                             limpar(); // limpa o console
                                             }
                                         case "4"-> {
 
                                             System.out.println("voltando...");
-                                            Thread.sleep(espera);
+                                            Thread.sleep(2000);
                                             gerirFuncionario = false;
                                         }
                                     }
@@ -1204,13 +1201,13 @@ public class FluxoGeral {
                             case "5"-> {
 
                                 System.out.println("Voltando...");
-                                Thread.sleep(espera);
+                                Thread.sleep(2000);
                                 continuar = false;
                                 }
                             // opção inválida, pede para informar uma opção válida
                             default-> {
                                 System.out.println("Opção inválida, por favor digite uma opção válida");
-                                Thread.sleep(espera);
+                                Thread.sleep(2000);
                                 limpar();
                                 }
                         }
