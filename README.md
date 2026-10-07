@@ -1,4 +1,5 @@
-# 🍱 Marmitech — Sistema de Gerenciamento de Estoque
+# 🍱 Marmitech
+Sistema de Gerenciamento de Estoque
 
 **Organização, controle e praticidade para pequenos negócios de marmitas.**
 
